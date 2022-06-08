@@ -4,7 +4,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<<<<<<< HEAD
 <meta name="generator" content="AsciiDoc 10.1.2" />
+=======
+<meta name="generator" content="AsciiDoc 10.1.4" />
+>>>>>>> deea47cf89d131b1e485d970e83094a877a2405e
 <title>CommonAPI C++ Specification</title>
 <style type="text/css">
 /* Shared CSS for AsciiDoc xhtml11 and html5 backends */
@@ -735,12 +739,20 @@ asciidoc.install();
 <body class="article">
 <div id="header">
 <h1>CommonAPI C++ Specification</h1>
+<<<<<<< HEAD
 <span id="revdate">13. May 2022</span>
+=======
+<span id="revdate">13. 5月 2022</span>
+>>>>>>> deea47cf89d131b1e485d970e83094a877a2405e
 </div>
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
+<<<<<<< HEAD
 <div class="paragraph"><p>This is the specification for <strong>Common API </strong> released at 13. May 2022.</p></div>
+=======
+<div class="paragraph"><p>This is the specification for <strong>Common API </strong> released at 13. 5月 2022.</p></div>
+>>>>>>> deea47cf89d131b1e485d970e83094a877a2405e
 <div class="sidebarblock">
 <div class="content">
 <div class="title">Copyright and License</div>
@@ -867,10 +879,36 @@ cellspacing="0" cellpadding="4">
 <tr>
 <td align="left" valign="top"><div><div class="listingblock">
 <div class="title">FrancaIDL</div>
+<<<<<<< HEAD
 <div class="content"></div></div></div></td>
 <td align="left" valign="top"><div><div class="listingblock">
 <div class="title">CommonAPI C++</div>
 <div class="content"></div></div></div></td>
+=======
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000080">package</span></span> example<span style="color: #990000">.</span>user
+
+<span style="font-weight: bold"><span style="color: #0000FF">interface</span></span> <span style="color: #008080">Test</span> <span style="color: #FF0000">{</span>
+    version <span style="color: #FF0000">{</span> major <span style="color: #993399">1</span> minor <span style="color: #993399">0</span> <span style="color: #FF0000">}</span>
+
+<span style="color: #FF0000">}</span></tt></pre></div></div></div></td>
+<td align="left" valign="top"><div><div class="listingblock">
+<div class="title">CommonAPI C++</div>
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">namespace</span></span> v1_0 <span style="color: #FF0000">{</span>
+<span style="font-weight: bold"><span style="color: #0000FF">namespace</span></span> example <span style="color: #FF0000">{</span>
+<span style="font-weight: bold"><span style="color: #0000FF">namespace</span></span> user <span style="color: #FF0000">{</span>
+
+<span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div></div></td>
+>>>>>>> deea47cf89d131b1e485d970e83094a877a2405e
 </tr>
 </tbody>
 </table>
@@ -978,20 +1016,77 @@ cellspacing="0" cellpadding="4">
 <div class="paragraph"><p>Franca <code>struct</code> types are mapped to C++ <code>struct</code> types. Example:</p></div>
 <div class="listingblock">
 <div class="title">FrancaIDL</div>
+<<<<<<< HEAD
 <div class="content"></div></div>
 <div class="listingblock">
 <div class="title">CommonAPI C++</div>
 <div class="content"></div></div>
+=======
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #008080">struct</span> TestStruct <span style="color: #FF0000">{</span>
+    UInt16 uintValue
+    String stringValue
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="listingblock">
+<div class="title">CommonAPI C++</div>
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">struct</span></span> <span style="color: #008080">TestStruct</span> <span style="color: #990000">:</span> CommonAPI<span style="color: #990000">::</span>Struct<span style="color: #990000">&lt;</span>uint16_t<span style="color: #990000">,</span> std<span style="color: #990000">::</span>string<span style="color: #990000">&gt;</span> <span style="color: #FF0000">{</span>
+
+    <span style="font-weight: bold"><span style="color: #000000">TestStruct</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+    <span style="color: #FF0000">}</span>
+    <span style="font-weight: bold"><span style="color: #000000">TestStruct</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">uint16_t</span> <span style="color: #990000">&amp;</span>_uintValue<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> std<span style="color: #990000">::</span><span style="color: #008080">string</span> <span style="color: #990000">&amp;</span>_stringValue<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        std<span style="color: #990000">::</span>get<span style="color: #990000">\&lt;</span><span style="color: #993399">0</span><span style="color: #990000">&gt;(</span>values_<span style="color: #990000">)</span> <span style="color: #990000">=</span> _uintValue<span style="color: #990000">;</span>
+        std<span style="color: #990000">::</span>get<span style="color: #990000">\&lt;</span><span style="color: #993399">1</span><span style="color: #990000">&gt;(</span>values_<span style="color: #990000">)</span> <span style="color: #990000">=</span> _stringValue<span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">uint16_t</span> <span style="color: #990000">&amp;</span><span style="font-weight: bold"><span style="color: #000000">getUintValue</span></span><span style="color: #990000">()</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> std<span style="color: #990000">::</span>get<span style="color: #990000">\&lt;</span><span style="color: #993399">0</span><span style="color: #990000">&gt;(</span>values_<span style="color: #990000">);</span> <span style="color: #FF0000">}</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setUintValue</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">uint16_t</span> <span style="color: #990000">&amp;</span>_value<span style="color: #990000">)</span> <span style="color: #FF0000">{</span> std<span style="color: #990000">::</span>get<span style="color: #990000">\&lt;</span><span style="color: #993399">0</span><span style="color: #990000">&gt;(</span>values_<span style="color: #990000">)</span> <span style="color: #990000">=</span> _value<span style="color: #990000">;</span> <span style="color: #FF0000">}</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> std<span style="color: #990000">::</span><span style="color: #008080">string</span> <span style="color: #990000">&amp;</span><span style="font-weight: bold"><span style="color: #000000">getStringValue</span></span><span style="color: #990000">()</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> std<span style="color: #990000">::</span>get<span style="color: #990000">\&lt;</span><span style="color: #993399">1</span><span style="color: #990000">&gt;(</span>values_<span style="color: #990000">);</span> <span style="color: #FF0000">}</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setStringValue</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> std<span style="color: #990000">::</span><span style="color: #008080">string</span> <span style="color: #990000">&amp;</span>_value<span style="color: #990000">)</span> <span style="color: #FF0000">{</span> std<span style="color: #990000">::</span>get<span style="color: #990000">\&lt;</span><span style="color: #993399">1</span><span style="color: #990000">&gt;(</span>values_<span style="color: #990000">)</span> <span style="color: #990000">=</span> _value<span style="color: #990000">;</span> <span style="color: #FF0000">}</span>
+        <span style="color: #009900">bool</span> <span style="font-weight: bold"><span style="color: #0000FF">operator</span></span><span style="color: #990000">==(</span><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">TestStruct</span> <span style="color: #990000">&amp;</span>_other<span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">bool</span> <span style="font-weight: bold"><span style="color: #0000FF">operator</span></span><span style="color: #990000">!=(</span><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">TestStruct</span> <span style="color: #990000">&amp;</span>_other<span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="color: #990000">!((*</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">)</span> <span style="color: #990000">==</span> _other<span style="color: #990000">);</span>
+    <span style="color: #FF0000">}</span>
+
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span></tt></pre></div></div>
+>>>>>>> deea47cf89d131b1e485d970e83094a877a2405e
 <div class="paragraph"><p>Structures are mapped to a (generated) <code>struct</code> which inherits from <code>CommonAPI::Struct</code>. <code>CommonAPI::Struct</code> holds the structured data in a tuple. The generated class provides getter- and setter-methods for the structure members.</p></div>
 <div class="paragraph"><p>CommonAPI <code>Struct</code> base class (<em>Struct.hpp</em>):</p></div>
 <div class="listingblock">
 <div class="title">CommonAPI C++</div>
+<<<<<<< HEAD
 <div class="content"></div></div>
+=======
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">template</span></span><span style="color: #990000">&lt;</span><span style="font-weight: bold"><span style="color: #0000FF">typename</span></span><span style="color: #990000">...</span> _Types<span style="color: #990000">&gt;</span>
+<span style="font-weight: bold"><span style="color: #0000FF">struct</span></span> <span style="color: #008080">Struct</span> <span style="color: #FF0000">{</span>
+    std<span style="color: #990000">::</span><span style="color: #008080">tuple&lt;_Types...&gt;</span> values_<span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span></tt></pre></div></div>
+>>>>>>> deea47cf89d131b1e485d970e83094a877a2405e
 <div class="paragraph"><p>One problem is the possibility to inherit structures in Franca IDL. This feature is implemented by the code generator which generates the struct members of the base type into the extended type.</p></div>
 <div class="paragraph"><p><strong>Polymorphic</strong> structs are mapped to an interface that is derived from the base class <code>PolymorphicStruct</code> and contain their parameter in a <code>struct</code>.</p></div>
 <div class="listingblock">
 <div class="title">CommonAPI C++</div>
+<<<<<<< HEAD
 <div class="content"></div></div>
+=======
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">struct</span></span> <span style="color: #008080">PolymorphicStruct</span> <span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">Serial</span> <span style="font-weight: bold"><span style="color: #000000">getSerial</span></span><span style="color: #990000">()</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span></tt></pre></div></div>
+>>>>>>> deea47cf89d131b1e485d970e83094a877a2405e
 </div>
 <div class="sect3">
 <h4 id="_enumerations">Enumerations</h4>
@@ -999,10 +1094,43 @@ cellspacing="0" cellpadding="4">
 <div class="paragraph"><p>Example:</p></div>
 <div class="listingblock">
 <div class="title">FrancaIDL</div>
+<<<<<<< HEAD
 <div class="content"></div></div>
 <div class="listingblock">
 <div class="title">CommonAPI C++</div>
 <div class="content"></div></div>
+=======
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #008080">enumeration</span> MyEnum <span style="color: #FF0000">{</span>
+    E_UNKNOWN <span style="color: #990000">=</span> <span style="color: #FF0000">"0x00"</span>
+<span style="color: #FF0000">}</span>
+
+enumeration MyEnumExtended <span style="color: #008080">extends</span> MyEnum <span style="color: #FF0000">{</span>
+    E_NEW <span style="color: #990000">=</span> <span style="color: #FF0000">"0x01"</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="listingblock">
+<div class="title">CommonAPI C++</div>
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">struct</span></span> <span style="color: #008080">MyEnum</span> <span style="color: #990000">:</span> CommonAPI<span style="color: #990000">::</span>Enumeration<span style="color: #990000">&lt;</span>int8_t<span style="color: #990000">&gt;</span> <span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #000000">MyEnum</span></span><span style="color: #990000">()</span> <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">default</span></span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #000000">MyEnum</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">int8_t</span> <span style="color: #990000">&amp;</span>_value<span style="color: #990000">)</span>
+        <span style="color: #990000">:</span> CommonAPI<span style="color: #990000">::</span>Enumeration<span style="color: #990000">&lt;</span>int8_t<span style="color: #990000">&gt;(</span>_value<span style="color: #990000">)</span> <span style="color: #FF0000">{}</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">int8_t</span> E_UNKNOWN <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">struct</span></span> <span style="color: #008080">MyEnumExtended</span> <span style="color: #990000">:</span> MyEnum <span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #000000">MyEnumExtended</span></span><span style="color: #990000">()</span> <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">default</span></span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #000000">MyEnumExtended</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">int8_t</span> <span style="color: #990000">&amp;</span>_value<span style="color: #990000">)</span>
+        <span style="color: #990000">:</span> <span style="font-weight: bold"><span style="color: #000000">MyEnum</span></span><span style="color: #990000">(</span>_value<span style="color: #990000">)</span> <span style="color: #FF0000">{}</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">int8_t</span> E_NEW <span style="color: #990000">=</span> <span style="color: #993399">1</span><span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span></tt></pre></div></div>
+>>>>>>> deea47cf89d131b1e485d970e83094a877a2405e
 <div class="admonitionblock">
 <table><tr>
 <td class="icon">
@@ -1014,7 +1142,38 @@ cellspacing="0" cellpadding="4">
 <div class="paragraph"><p>The neumeration base class looks like:</p></div>
 <div class="listingblock">
 <div class="title">CommonAPI C++</div>
+<<<<<<< HEAD
 <div class="content"></div></div>
+=======
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">template</span></span> <span style="color: #990000">&lt;</span><span style="font-weight: bold"><span style="color: #0000FF">typename</span></span> <span style="color: #008080">_Base</span><span style="color: #990000">&gt;</span>
+<span style="font-weight: bold"><span style="color: #0000FF">struct</span></span> <span style="color: #008080">Enumeration</span> <span style="color: #FF0000">{</span>
+
+    <span style="font-weight: bold"><span style="color: #000000">Enumeration</span></span><span style="color: #990000">()</span> <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">default</span></span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #000000">Enumeration</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">_Base</span> <span style="color: #990000">&amp;</span>_value<span style="color: #990000">)</span>
+        <span style="color: #990000">:</span> <span style="font-weight: bold"><span style="color: #000000">value_</span></span><span style="color: #990000">(</span>_value<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    <span style="color: #FF0000">}</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #008080">Enumeration</span> <span style="color: #990000">&amp;</span><span style="font-weight: bold"><span style="color: #0000FF">operator</span></span><span style="color: #990000">=(</span><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">_Base</span> <span style="color: #990000">&amp;</span>_value<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        value_ <span style="color: #990000">=</span> _value<span style="color: #990000">;</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="color: #990000">(*</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">);</span>
+    <span style="color: #FF0000">}</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="font-weight: bold"><span style="color: #0000FF">operator</span></span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="font-weight: bold"><span style="color: #000000">_Base</span></span><span style="color: #990000">()</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> value_<span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">bool</span> <span style="font-weight: bold"><span style="color: #0000FF">operator</span></span> <span style="color: #990000">==</span> <span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">Enumeration&lt;_Base&gt;</span> <span style="color: #990000">&amp;</span>_other<span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> value_ <span style="color: #990000">==</span> _other<span style="color: #990000">.</span>value_<span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">bool</span> <span style="font-weight: bold"><span style="color: #0000FF">operator</span></span> <span style="color: #990000">!=</span> <span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">Enumeration&lt;_Base&gt;</span> <span style="color: #990000">&amp;</span>_other<span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> value_ <span style="color: #990000">!=</span> _other<span style="color: #990000">.</span>value_<span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+
+    <span style="color: #008080">__Base</span> value__<span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span></tt></pre></div></div>
+>>>>>>> deea47cf89d131b1e485d970e83094a877a2405e
 </div>
 <div class="sect3">
 <h4 id="_maps">Maps</h4>
@@ -1030,10 +1189,27 @@ cellspacing="0" cellpadding="4">
 <tr>
 <td align="left" valign="top"><div><div class="listingblock">
 <div class="title">FrancaIDL</div>
+<<<<<<< HEAD
 <div class="content"></div></div></div></td>
 <td align="left" valign="top"><div><div class="listingblock">
 <div class="title">CommonAPI C++</div>
 <div class="content"></div></div></div></td>
+=======
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #008080">map</span> MyMap <span style="color: #FF0000">{</span>
+    UInt32 to String
+<span style="color: #FF0000">}</span></tt></pre></div></div></div></td>
+<td align="left" valign="top"><div><div class="listingblock">
+<div class="title">CommonAPI C++</div>
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">typedef</span></span> std<span style="color: #990000">::</span><span style="color: #008080">unordered_map&lt;uint32_t, std::string&gt;</span> MyMap<span style="color: #990000">;</span></tt></pre></div></div></div></td>
+>>>>>>> deea47cf89d131b1e485d970e83094a877a2405e
 </tr>
 </tbody>
 </table>
@@ -1053,10 +1229,28 @@ cellspacing="0" cellpadding="4">
 <tr>
 <td align="left" valign="top"><div><div class="listingblock">
 <div class="title">FrancaIDL</div>
+<<<<<<< HEAD
 <div class="content"></div></div></div></td>
 <td align="left" valign="top"><div><div class="listingblock">
 <div class="title">CommonAPI C++</div>
 <div class="content"></div></div></div></td>
+=======
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #008080">union</span> MyUnion <span style="color: #FF0000">{</span>
+    UInt32 MyUInt
+    String MyString
+<span style="color: #FF0000">}</span></tt></pre></div></div></div></td>
+<td align="left" valign="top"><div><div class="listingblock">
+<div class="title">CommonAPI C++</div>
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">typedef</span></span> <span style="color: #008080">Variant&lt;uint32_t, std::string&gt;</span> MyUnion<span style="color: #990000">;</span></tt></pre></div></div></div></td>
+>>>>>>> deea47cf89d131b1e485d970e83094a877a2405e
 </tr>
 </tbody>
 </table>
@@ -1064,7 +1258,16 @@ cellspacing="0" cellpadding="4">
 <div class="paragraph"><p>This uses a variadic template to define the possible options, and implements operators in the expected fashion.</p></div>
 <div class="paragraph"><p>Assignment works by constructor or assignment operator:</p></div>
 <div class="listingblock">
+<<<<<<< HEAD
 <div class="content"></div></div>
+=======
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #008080">MyUnion</span> <span style="font-weight: bold"><span style="color: #0000FF">union</span></span> <span style="color: #990000">=</span> <span style="color: #993399">5</span><span style="color: #990000">;</span>
+<span style="color: #008080">MyUnion</span> <span style="font-weight: bold"><span style="color: #000000">stringUnion</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"my String"</span><span style="color: #990000">);</span></tt></pre></div></div>
+>>>>>>> deea47cf89d131b1e485d970e83094a877a2405e
 <div class="paragraph"><p>Getting the contained value is done via a get method templated to the type desired for type safety. This results in a compile error if an impossible type is attempted to be fetched. In case of fetching a type which can be contained but is not an exception is thrown. The choice of an exception at this point is made for the following reasons:</p></div>
 <div class="ulist"><ul>
 <li>
@@ -1084,10 +1287,29 @@ Returning a null heap object will be a memory leak if not deleted by the user.
 </li>
 </ul></div>
 <div class="listingblock">
+<<<<<<< HEAD
 <div class="content"></div></div>
 <div class="paragraph"><p>Also available is an templated isType method to test for the contained type:</p></div>
 <div class="listingblock">
 <div class="content"></div></div>
+=======
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #008080">MyUnion</span> <span style="font-weight: bold"><span style="color: #0000FF">union</span></span> <span style="color: #990000">=</span> <span style="color: #993399">5</span><span style="color: #990000">;</span>
+<span style="color: #009900">int</span> a <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">union</span></span><span style="color: #990000">.</span>get<span style="color: #990000">&lt;</span>uint32_t<span style="color: #990000">&gt;();</span> <span style="font-style: italic"><span style="color: #9A1900">//Works!</span></span>
+std<span style="color: #990000">::</span><span style="color: #008080">string</span> b <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">union</span></span><span style="color: #990000">.</span>get<span style="color: #990000">&lt;</span>std<span style="color: #990000">::</span>string<span style="color: #990000">&gt;();</span> <span style="font-style: italic"><span style="color: #9A1900">//Throws exception</span></span></tt></pre></div></div>
+<div class="paragraph"><p>Also available is an templated isType method to test for the contained type:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #008080">MyUnion</span> <span style="font-weight: bold"><span style="color: #0000FF">union</span></span> <span style="color: #990000">=</span> <span style="color: #993399">5</span><span style="color: #990000">;</span>
+<span style="color: #009900">bool</span> contained <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">union</span></span><span style="color: #990000">.</span>isType<span style="color: #990000">&lt;</span>uint32_t<span style="color: #990000">&gt;();</span> <span style="font-style: italic"><span style="color: #9A1900">//True!</span></span>
+contained <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">union</span></span><span style="color: #990000">.</span>isType<span style="color: #990000">&lt;</span>std<span style="color: #990000">::</span>string<span style="color: #990000">&gt;();</span> <span style="font-style: italic"><span style="color: #9A1900">//False!</span></span></tt></pre></div></div>
+>>>>>>> deea47cf89d131b1e485d970e83094a877a2405e
 <div class="admonitionblock">
 <table><tr>
 <td class="icon">
@@ -1107,10 +1329,42 @@ Returning a null heap object will be a memory leak if not deleted by the user.
 <div class="paragraph"><p>The CommonAPI code generator generates the header file <em>Anonymous</em>.hpp and creates a C++ <code>struct</code> for the type collection.</p></div>
 <div class="listingblock">
 <div class="title">FrancaIDL</div>
+<<<<<<< HEAD
 <div class="content"></div></div>
 <div class="listingblock">
 <div class="title">CommonAPI C++</div>
 <div class="content"></div></div>
+=======
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000080">package</span></span> example<span style="color: #990000">.</span>user
+
+typeCollection <span style="color: #FF0000">{</span>
+    typedef a is Int16
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="listingblock">
+<div class="title">CommonAPI C++</div>
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">namespace</span></span> example <span style="color: #FF0000">{</span>
+<span style="font-weight: bold"><span style="color: #0000FF">namespace</span></span> user <span style="color: #FF0000">{</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">struct</span></span> <span style="color: #008080">__Anonymous__</span> <span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">typedef</span></span> <span style="color: #008080">int16_t</span> a<span style="color: #990000">;</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #009900">char</span><span style="color: #990000">*</span> <span style="font-weight: bold"><span style="color: #000000">getTypeCollectionName</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #009900">char</span><span style="color: #990000">*</span> typeCollectionName <span style="color: #990000">=</span> <span style="color: #FF0000">"example.user.__Anonymous__"</span><span style="color: #990000">;</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> typeCollectionName<span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span> <span style="font-style: italic"><span style="color: #9A1900">// struct __Anonymous__</span></span>
+
+<span style="color: #FF0000">}</span> <span style="font-style: italic"><span style="color: #9A1900">// namespace user</span></span>
+<span style="color: #FF0000">}</span> <span style="font-style: italic"><span style="color: #9A1900">// namespace example</span></span></tt></pre></div></div>
+>>>>>>> deea47cf89d131b1e485d970e83094a877a2405e
 <div class="admonitionblock">
 <table><tr>
 <td class="icon">
@@ -1128,6 +1382,7 @@ Returning a null heap object will be a memory leak if not deleted by the user.
 <div class="paragraph"><p>For the Franca interface name, referred to as <em>interfacename</em>, a class <code>interfacename</code> is generated which provides the methods <code>getInterfaceName</code> and <code>getInterfaceVersion</code>. The version is mapped to a struct <code>CommonAPI::Version</code>.</p></div>
 <div class="listingblock">
 <div class="title">FrancaIDL</div>
+<<<<<<< HEAD
 <div class="content"></div></div>
 <div class="listingblock">
 <div class="title">CommonAPI C++</div>
@@ -1135,6 +1390,66 @@ Returning a null heap object will be a memory leak if not deleted by the user.
 <div class="paragraph"><p>The specification of the version structure is part of the namespace CommonAPI:</p></div>
 <div class="listingblock">
 <div class="content"></div></div>
+=======
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000080">package</span></span> commonapi<span style="color: #990000">.</span>examples
+
+<span style="font-weight: bold"><span style="color: #0000FF">interface</span></span> <span style="color: #008080">ExampleInterface</span> <span style="color: #FF0000">{</span>
+    version <span style="color: #FF0000">{</span> major <span style="color: #993399">1</span> minor <span style="color: #993399">0</span> <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="listingblock">
+<div class="title">CommonAPI C++</div>
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">namespace</span></span> v1_0 <span style="color: #FF0000">{</span>
+<span style="font-weight: bold"><span style="color: #0000FF">namespace</span></span> commonapi <span style="color: #FF0000">{</span>
+<span style="font-weight: bold"><span style="color: #0000FF">namespace</span></span> examples <span style="color: #FF0000">{</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">ExampleInterface</span> <span style="color: #FF0000">{</span>
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span><span style="color: #990000">:</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #990000">~</span><span style="font-weight: bold"><span style="color: #000000">ExampleInterface</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span> <span style="color: #FF0000">}</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #009900">char</span><span style="color: #990000">*</span> <span style="font-weight: bold"><span style="color: #000000">getInterface</span></span><span style="color: #990000">();</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> CommonAPI<span style="color: #990000">::</span><span style="color: #008080">Version</span> <span style="font-weight: bold"><span style="color: #000000">getInterfaceVersion</span></span><span style="color: #990000">();</span>
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #009900">char</span><span style="color: #990000">*</span> ExampleInterface<span style="color: #990000">::</span><span style="font-weight: bold"><span style="color: #000000">getInterface</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="color: #990000">(</span><span style="color: #FF0000">"commonapi.examples.ExampleInterface"</span><span style="color: #990000">);</span>
+<span style="color: #FF0000">}</span>
+
+CommonAPI<span style="color: #990000">::</span><span style="color: #008080">Version</span> ExampleInterface<span style="color: #990000">::</span><span style="font-weight: bold"><span style="color: #000000">getInterfaceVersion</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> CommonAPI<span style="color: #990000">::</span><span style="font-weight: bold"><span style="color: #000000">Version</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">,</span> <span style="color: #993399">0</span><span style="color: #990000">);</span>
+<span style="color: #FF0000">}</span>
+
+
+<span style="color: #FF0000">}</span> <span style="font-style: italic"><span style="color: #9A1900">// namespace examples</span></span>
+<span style="color: #FF0000">}</span> <span style="font-style: italic"><span style="color: #9A1900">// namespace commonapi</span></span>
+<span style="color: #FF0000">}</span> <span style="font-style: italic"><span style="color: #9A1900">// namespace v1_0</span></span></tt></pre></div></div>
+<div class="paragraph"><p>The specification of the version structure is part of the namespace CommonAPI:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">namespace</span></span> CommonAPI <span style="color: #FF0000">{</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">struct</span></span> <span style="color: #008080">Version</span> <span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #000000">Version</span></span><span style="color: #990000">()</span> <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">default</span></span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #000000">Version</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">uint32_t</span> <span style="color: #990000">&amp;</span>majorValue<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">uint32_t</span> <span style="color: #990000">&amp;</span>minorValue<span style="color: #990000">)</span>
+        <span style="color: #990000">:</span> <span style="font-weight: bold"><span style="color: #000000">Major</span></span><span style="color: #990000">(</span>majorValue<span style="color: #990000">),</span> <span style="font-weight: bold"><span style="color: #000000">Minor</span></span><span style="color: #990000">(</span>minorValue<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    <span style="color: #FF0000">}</span>
+
+    <span style="color: #008080">uint32_t</span> Major<span style="color: #990000">;</span>
+    <span style="color: #008080">uint32_t</span> Minor<span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+<span style="color: #FF0000">}</span> <span style="font-style: italic"><span style="color: #9A1900">// namespace CommonAPI</span></span></tt></pre></div></div>
+>>>>>>> deea47cf89d131b1e485d970e83094a877a2405e
 <div class="paragraph"><p>As described above it is a basic assumption that the applications use the client-server communication paradigm. That means that the CommonAPI code generator generates stub code for the server implementation and proxy code for the client implementation.</p></div>
 <div class="paragraph"><p>At least the following files are generated:</p></div>
 <div class="tableblock">
@@ -1197,7 +1512,25 @@ The CommonAPI does not provide the possibility to cancel asynchronous calls.
 </ul></div>
 <div class="paragraph"><p>For methods without the <code>fireAndForget</code> flag an additional return value CallStatus is provided which is defined as enumeration:</p></div>
 <div class="listingblock">
+<<<<<<< HEAD
 <div class="content"></div></div>
+=======
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">enum</span></span> <span style="color: #008080">class</span> CallStatus <span style="color: #FF0000">{</span>
+    SUCCESS<span style="color: #990000">,</span>
+    OUT_OF_MEMORY<span style="color: #990000">,</span>
+    NOT_AVAILABLE<span style="color: #990000">,</span>
+    CONNECTION_FAILED<span style="color: #990000">,</span>
+    REMOTE_ERROR<span style="color: #990000">,</span>
+    UNKNOWN<span style="color: #990000">,</span>
+    INVALID_VALUE<span style="color: #990000">,</span>
+    SUBSCRIPTION_REFUSED<span style="color: #990000">,</span>
+    SERIALIZATION_ERROR
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span></tt></pre></div></div>
+>>>>>>> deea47cf89d131b1e485d970e83094a877a2405e
 <div class="paragraph"><p>The <code>CallStatus</code> defines the transport layer result of the call, i.e. it returns:</p></div>
 <div class="ulist"><ul>
 <li>
@@ -1227,7 +1560,25 @@ REMOTE_ERROR, if the sent remote call does not return (in time). <strong>NOT</st
 </li>
 </ul></div>
 <div class="listingblock">
+<<<<<<< HEAD
 <div class="content"></div></div>
+=======
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">struct</span></span> <span style="color: #008080">CallInfo</span> <span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #000000">CallInfo</span></span><span style="color: #990000">()</span>
+        <span style="color: #990000">:</span> <span style="font-weight: bold"><span style="color: #000000">timeout_</span></span><span style="color: #990000">(</span>DEFAULT_SEND_TIMEOUT_MS<span style="color: #990000">),</span> <span style="font-weight: bold"><span style="color: #000000">sender_</span></span><span style="color: #990000">(</span><span style="color: #993399">0</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    <span style="color: #FF0000">}</span>
+    <span style="font-weight: bold"><span style="color: #000000">CallInfo</span></span><span style="color: #990000">(</span><span style="color: #008080">Timeout_t</span> _timeout<span style="color: #990000">)</span>
+        <span style="color: #990000">:</span> <span style="font-weight: bold"><span style="color: #000000">timeout_</span></span><span style="color: #990000">(</span>_timeout<span style="color: #990000">),</span> <span style="font-weight: bold"><span style="color: #000000">sender_</span></span><span style="color: #990000">(</span><span style="color: #993399">0</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    <span style="color: #FF0000">}</span>
+
+    <span style="color: #008080">Timeout_t</span> timeout_<span style="color: #990000">;</span>
+    <span style="color: #008080">Sender_t</span> sender_<span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span></tt></pre></div></div>
+>>>>>>> deea47cf89d131b1e485d970e83094a877a2405e
 <div class="paragraph"><p>The structure timeout contains an additional member <code>sender_</code> which can be used to identify the caller of this function. The exact usage is binding specific.</p></div>
 <div class="paragraph"><p>For the return parameters a function object is created which is passed to the asynchronous method call. This function object can then be used directly in the client application as function pointer to a callback function or be bound to a function with a different signature. The usage of <code>std::bind</code> is not enforced but must be possible. The bound callback function object will be called in any case:</p></div>
 <div class="ulist"><ul>
@@ -1245,10 +1596,77 @@ If a transport layer error occurs: If an error occurs that would trigger the met
 <div class="paragraph"><p>The asynchronous call returns the CallStatus as future object. This allows the synchronization of asynchronous calls to a defined time. The future object will attain its value at the same time at which the callback function object is called.</p></div>
 <div class="paragraph"><p>The following example shows the signatures of the generated functions. First, the Franca IDL example:</p></div>
 <div class="listingblock">
+<<<<<<< HEAD
 <div class="content"></div></div>
 <div class="paragraph"><p>See the generated function calls for the methods <em>getProperty</em> and <em>newMessage</em> on <strong>proxy side</strong>:</p></div>
 <div class="listingblock">
 <div class="content"></div></div>
+=======
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000080">package</span></span> commonapi<span style="color: #990000">.</span>examples
+
+<span style="font-weight: bold"><span style="color: #0000FF">interface</span></span> <span style="color: #008080">ExampleInterface</span> <span style="color: #FF0000">{</span>
+
+    version <span style="color: #FF0000">{</span> major <span style="color: #993399">1</span> minor <span style="color: #993399">0</span> <span style="color: #FF0000">}</span>
+
+    <span style="color: #008080">method</span> getProperty <span style="color: #FF0000">{</span>
+        in <span style="color: #FF0000">{</span>
+        UInt32 ID
+    <span style="color: #FF0000">}</span>
+    out <span style="color: #FF0000">{</span>
+        String Property
+    <span style="color: #FF0000">}</span>
+    error <span style="color: #FF0000">{</span>
+        OK
+        NOT_OK
+    <span style="color: #FF0000">}</span>
+    <span style="color: #FF0000">}</span>
+
+    method <span style="color: #008080">newMessage</span> fireAndForget <span style="color: #FF0000">{</span>
+    in <span style="color: #FF0000">{</span>
+        String MessageName
+    <span style="color: #FF0000">}</span>
+    <span style="color: #FF0000">}</span>
+
+    <span style="color: #008080">broadcast</span> signalChanged <span style="color: #FF0000">{</span>
+    out <span style="color: #FF0000">{</span>
+        UInt32 NewValue
+    <span style="color: #FF0000">}</span>
+    <span style="color: #FF0000">}</span>
+
+    broadcast <span style="color: #008080">signalSpecial</span> selective <span style="color: #FF0000">{</span>
+    out <span style="color: #FF0000">{</span>
+        UInt32 MyValue
+    <span style="color: #FF0000">}</span>
+    <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="paragraph"><p>See the generated function calls for the methods <em>getProperty</em> and <em>newMessage</em> on <strong>proxy side</strong>:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-style: italic"><span style="color: #9A1900">/* Calls getProperty with synchronous semantics. */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">getProperty</span></span><span style="color: #990000">(</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">uint32_t</span> <span style="color: #990000">&amp;</span>_ID<span style="color: #990000">,</span>
+    CommonAPI<span style="color: #990000">::</span><span style="color: #008080">CallStatus</span> <span style="color: #990000">&amp;</span>_status<span style="color: #990000">,</span>
+    ExampleInterface<span style="color: #990000">::</span><span style="color: #008080">getPropertyError</span> <span style="color: #990000">&amp;</span>_error<span style="color: #990000">,</span>
+    std<span style="color: #990000">::</span><span style="color: #008080">string</span> <span style="color: #990000">&amp;</span>_Property<span style="color: #990000">,</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> CommonAPI<span style="color: #990000">::</span><span style="color: #008080">CallInfo</span> <span style="color: #990000">*</span>_info <span style="color: #990000">=</span> nullptr<span style="color: #990000">);</span>
+
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Calls getProperty with asynchronous semantics. */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> std<span style="color: #990000">::</span><span style="color: #008080">future&lt;CommonAPI::CallStatus&gt;</span> <span style="font-weight: bold"><span style="color: #000000">getPropertyAsync</span></span><span style="color: #990000">(</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">uint32_t</span> <span style="color: #990000">&amp;</span>_ID<span style="color: #990000">,</span>
+    <span style="color: #008080">GetPropertyAsyncCallback</span> _callback<span style="color: #990000">,</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> CommonAPI<span style="color: #990000">::</span><span style="color: #008080">CallInfo</span> <span style="color: #990000">*</span>_info <span style="color: #990000">=</span> nullptr<span style="color: #990000">);</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Calls newMessage with Fire&amp;Forget semantics. */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">newMessage</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> std<span style="color: #990000">::</span><span style="color: #008080">string</span> <span style="color: #990000">&amp;</span>_MessageName<span style="color: #990000">,</span> CommonAPI<span style="color: #990000">::</span><span style="color: #008080">CallStatus</span> <span style="color: #990000">&amp;</span>_status<span style="color: #990000">);</span></tt></pre></div></div>
+>>>>>>> deea47cf89d131b1e485d970e83094a877a2405e
 <div class="ulist"><ul>
 <li>
 <p>
@@ -1273,6 +1691,7 @@ The provided callback of the asynchronous call will be called when the reply to 
 </ul></div>
 <div class="paragraph"><p>On <strong>stub side</strong> the generated functions are part of the generated stub (<code>ExampleInterfaceStub.hpp</code>):</p></div>
 <div class="listingblock">
+<<<<<<< HEAD
 <div class="content"></div></div>
 <div class="paragraph"><p>These functions are pure virtual; that means that an implementation must be provided. A skeleton for this implementation can be generated by the code generator. The return values of the function call are wrapped into a function object:</p></div>
 <div class="listingblock">
@@ -1289,6 +1708,81 @@ The provided callback of the asynchronous call will be called when the reply to 
 <div class="paragraph"><p>The generated stub provides methods to fire the broadcasts and some hooks:</p></div>
 <div class="listingblock">
 <div class="content"></div></div>
+=======
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-style: italic"><span style="color: #9A1900">/* This is the method that will be called on remote calls on the method getProperty.*/</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">getProperty</span></span><span style="color: #990000">(</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> std<span style="color: #990000">::</span><span style="color: #008080">shared_ptr&lt;CommonAPI::ClientId&gt;</span> _client<span style="color: #990000">,</span>
+    <span style="color: #008080">uint32_t</span> _ID<span style="color: #990000">,</span>
+    <span style="color: #008080">getPropertyReply_t</span> _reply<span style="color: #990000">)</span> <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* This is the method that will be called on remote calls on the method newMessage.*/</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">newMessage</span></span><span style="color: #990000">(</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> std<span style="color: #990000">::</span><span style="color: #008080">shared_ptr&lt;CommonAPI::ClientId&gt;</span> _client<span style="color: #990000">,</span>
+    std<span style="color: #990000">::</span><span style="color: #008080">string</span> _MessageName<span style="color: #990000">)</span> <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span></tt></pre></div></div>
+<div class="paragraph"><p>These functions are pure virtual; that means that an implementation must be provided. A skeleton for this implementation can be generated by the code generator. The return values of the function call are wrapped into a function object:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">typedef</span></span> std<span style="color: #990000">::</span><span style="color: #008080">function&lt;void (ExampleInterface::getPropertyError _error, std::string _Property)&gt;</span> getPropertyReply_t<span style="color: #990000">;</span></tt></pre></div></div>
+<div class="paragraph"><p>This allows it to pass this object to other functions in order to implement an asynchronous behavior on stub side.</p></div>
+<div class="paragraph"><p>On stub side the additional parameter of type <em>ClientId</em> is passed. The <em>ClientId</em> identifies a client sending a call to a stub. It is used to identify the caller within a stub and is supposed to be added by the middleware and can be compared using the == operator. The ClientId class is declared as:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">ClientId</span> <span style="color: #FF0000">{</span>
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span><span style="color: #990000">:</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #990000">~</span><span style="font-weight: bold"><span style="color: #000000">ClientId</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span> <span style="color: #FF0000">}</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">bool</span> <span style="font-weight: bold"><span style="color: #0000FF">operator</span></span><span style="color: #990000">==(</span>ClientId<span style="color: #990000">&amp;</span> clientIdToCompare<span style="color: #990000">)</span> <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> std<span style="color: #990000">::</span><span style="color: #008080">size_t</span> <span style="font-weight: bold"><span style="color: #000000">hashCode</span></span><span style="color: #990000">()</span> <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span></tt></pre></div></div>
+<div class="paragraph"><p>The pure virtual methods operator==() and hascode() have to be implemented by the middleware specific binding. Note that the value of the ClientId itself is irrelevant for CommonAPI. As API only the comparison operator is offered; the middleware specific identifier could be of any size as long as it is unique. The method <code>hascode()</code> is there so that the <code>ClientId</code> can be used as key in a hashmap.</p></div>
+<div class="paragraph"><p>If we now consider the broadcast methods the generated functions on <strong>proxy side</strong> are:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> SignalChangedEvent<span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">getSignalChangedEvent</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> delegate_<span style="color: #990000">-&gt;</span><span style="font-weight: bold"><span style="color: #000000">getSignalChangedEvent</span></span><span style="color: #990000">();</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> SignalSpecialSelectiveEvent<span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">getSignalSpecialSelectiveEvent</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> delegate_<span style="color: #990000">-&gt;</span><span style="font-weight: bold"><span style="color: #000000">getSignalSpecialSelectiveEvent</span></span><span style="color: #990000">();</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="paragraph"><p>These methods return a wrapper class for an event that provides access to the broadcast <code>signalChanged</code> (see below in this specification the CommonAPI definition of events). The wrapper class provides the methods subscribe and unsubscribe. The private property <code>delegate_</code> is used for forwarding the function call to the specific binding.</p></div>
+<div class="paragraph"><p>The generated stub provides methods to fire the broadcasts and some hooks:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">fireSignalChangedEvent</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">uint32_t</span> <span style="color: #990000">&amp;</span>_NewValue<span style="color: #990000">)</span> <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">fireSignalSpecialSelective</span></span><span style="color: #990000">(</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">uint32_t</span> <span style="color: #990000">&amp;</span>_MyValue<span style="color: #990000">,</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> std<span style="color: #990000">::</span><span style="color: #008080">shared_ptr&lt;CommonAPI::ClientIdList&gt;</span> _receivers <span style="color: #990000">=</span> nullptr<span style="color: #990000">)</span> <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* retreives the list of all subscribed clients for signalSpecial */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> std<span style="color: #990000">::</span>shared_ptr<span style="color: #990000">&lt;</span>CommonAPI<span style="color: #990000">::</span>ClientIdList<span style="color: #990000">&gt;</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="font-weight: bold"><span style="color: #000000">getSubscribersForSignalSpecialSelective</span></span><span style="color: #990000">()</span> <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Hook method for reacting on new subscriptions or</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">   removed subscriptions respectively for selective broadcasts.*/</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">onSignalSpecialSelectiveSubscriptionChanged</span></span><span style="color: #990000">(</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> std<span style="color: #990000">::</span><span style="color: #008080">shared_ptr&lt;CommonAPI::ClientId&gt;</span> _client<span style="color: #990000">,</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> CommonAPI<span style="color: #990000">::</span><span style="color: #008080">SelectiveBroadcastSubscriptionEvent</span> _event<span style="color: #990000">)</span> <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Hook method for reacting accepting or denying new subscriptions */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">bool</span> <span style="font-weight: bold"><span style="color: #000000">onSignalSpecialSelectiveSubscriptionRequested</span></span><span style="color: #990000">(</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> std<span style="color: #990000">::</span><span style="color: #008080">shared_ptr&lt;CommonAPI::ClientId&gt;</span> _client<span style="color: #990000">)</span> <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span></tt></pre></div></div>
+>>>>>>> deea47cf89d131b1e485d970e83094a877a2405e
 <div class="paragraph"><p>Note that the Franca keyword <em>selective</em> is implemented only on stub side by using the <em>ClientId</em> and the provided hooks.</p></div>
 <div class="admonitionblock">
 <table><tr>
@@ -1382,10 +1876,37 @@ Is getting a cached value a distinct method call or is it to be included transpa
 <div class="paragraph"><p>The base class for extensions is defined in <code>AttributeExtension.hpp</code>.</p></div>
 <div class="paragraph"><p>The CommonAPI for attributes on <strong>stub side</strong> looks like this when we only consider the attribute <code>A</code>:</p></div>
 <div class="listingblock">
+<<<<<<< HEAD
 <div class="content"></div></div>
 <div class="paragraph"><p>The attribue <code>a</code> is stored in the default implementation of the stub class as private member. The get function has to be implemented by the application, e.g.:</p></div>
 <div class="listingblock">
 <div class="content"></div></div>
+=======
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">ExampleInterfaceStub</span>
+    <span style="color: #990000">:</span> <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> CommonAPI<span style="color: #990000">::</span>Stub<span style="color: #990000">&lt;</span>ExampleInterfaceStubAdapter<span style="color: #990000">,</span> ExampleInterfaceStubRemoteEvent<span style="color: #990000">&gt;</span> <span style="color: #FF0000">{</span>
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span><span style="color: #990000">:</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">// Other code here</span></span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/* Provides getter access to the attribute a */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">uint32_t</span> <span style="color: #990000">&amp;</span><span style="font-weight: bold"><span style="color: #000000">getAAttribute</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> std<span style="color: #990000">::</span><span style="color: #008080">shared_ptr&lt;CommonAPI::ClientId&gt;</span> _client<span style="color: #990000">)</span> <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">// Other code here</span></span>
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span></tt></pre></div></div>
+<div class="paragraph"><p>The attribue <code>a</code> is stored in the default implementation of the stub class as private member. The get function has to be implemented by the application, e.g.:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> uint32_t<span style="color: #990000">&amp;</span> ExampleInterfaceStubImpl<span style="color: #990000">::</span><span style="font-weight: bold"><span style="color: #000000">getAAttribute</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> aAttributeValue_<span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+>>>>>>> deea47cf89d131b1e485d970e83094a877a2405e
 <div class="paragraph"><p>Furthermore CommonAPI defines the necessary callbacks to handle remote set events related to the attributes defined in the IDL description for ExampleInterface. For each attribute two callbacks are defined in the class ExampleInterfaceStubRemoteEvent:</p></div>
 <div class="ulist"><ul>
 <li>
@@ -1400,6 +1921,7 @@ an action callback to do local work after the attribute value has been changed (
 </li>
 </ul></div>
 <div class="listingblock">
+<<<<<<< HEAD
 <div class="content"></div></div>
 <div class="paragraph"><p>An implementation could be:</p></div>
 <div class="listingblock">
@@ -1410,6 +1932,58 @@ an action callback to do local work after the attribute value has been changed (
 <div class="paragraph"><p>The fireAAttributeChanged method can be used in an implementation like this:</p></div>
 <div class="listingblock">
 <div class="content"></div></div>
+=======
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">ExampleInterfaceStubRemoteEvent</span> <span style="color: #FF0000">{</span>
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span><span style="color: #990000">:</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #990000">~</span><span style="font-weight: bold"><span style="color: #000000">ExampleInterfaceStubRemoteEvent</span></span><span style="color: #990000">()</span> <span style="color: #FF0000">{</span> <span style="color: #FF0000">}</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/* Verification callback for remote set requests on the attribute a */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">bool</span> <span style="font-weight: bold"><span style="color: #000000">onRemoteSetAAttribute</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> std<span style="color: #990000">::</span><span style="color: #008080">shared_ptr&lt;CommonAPI::ClientId&gt;</span> _client<span style="color: #990000">,</span> <span style="color: #008080">uint32_t</span> a<span style="color: #990000">)</span> <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>
+    <span style="font-style: italic"><span style="color: #9A1900">/* Action callback for remote set requests on the attribute a */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">onRemoteAAttributeChanged</span></span><span style="color: #990000">()</span> <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span></tt></pre></div></div>
+<div class="paragraph"><p>An implementation could be:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #009900">bool</span> ExampleInterfaceStubSkel<span style="color: #990000">::</span>RemoteEventHandler<span style="color: #990000">::</span><span style="font-weight: bold"><span style="color: #000000">onRemoteSetAAttribute</span></span><span style="color: #990000">(</span><span style="color: #008080">uint32_t</span> _value<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #009900">bool</span> valueChanged <span style="color: #990000">=</span> <span style="color: #990000">(</span>aAttributeValue_ <span style="color: #990000">!=</span> _value<span style="color: #990000">);</span>
+    aAttributeValue_ <span style="color: #990000">=</span> std<span style="color: #990000">::</span><span style="font-weight: bold"><span style="color: #000000">move</span></span><span style="color: #990000">(</span>_value<span style="color: #990000">);</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> valueChanged<span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="paragraph"><p>An API for sending broadcasts and attribute-changed-notifications of observable attributes is provided by the class ExampleInterfaceStubAdapter:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">ExampleInterfaceStubAdapter</span>
+    <span style="color: #990000">:</span> <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> CommonAPI<span style="color: #990000">::</span>StubAdapter<span style="color: #990000">,</span>
+      <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> ExampleInterface <span style="color: #FF0000">{</span>
+ <span style="font-weight: bold"><span style="color: #0000FF">public</span></span><span style="color: #990000">:</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">fireAAttributeChanged</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> uint32_t<span style="color: #990000">&amp;</span> a<span style="color: #990000">)</span> <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>
+
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span></tt></pre></div></div>
+<div class="paragraph"><p>The fireAAttributeChanged method can be used in an implementation like this:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #009900">void</span> ExampleInterfaceStubImpl<span style="color: #990000">::</span><span style="font-weight: bold"><span style="color: #000000">setAAttribute</span></span><span style="color: #990000">(</span><span style="color: #008080">uint32_t</span> _value<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>valueChanged <span style="color: #990000">&amp;&amp;</span> stubAdapter_ <span style="color: #990000">!=</span> NULL<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        stubAdapter_<span style="color: #990000">-&gt;</span><span style="font-weight: bold"><span style="color: #000000">fireAAttributeChanged</span></span><span style="color: #990000">(</span>aAttributeValue_<span style="color: #990000">);</span>
+    <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+>>>>>>> deea47cf89d131b1e485d970e83094a877a2405e
 <div class="paragraph"><p>If skeletons for the stubs are generated (code generator option), they do:</p></div>
 <div class="ulist"><ul>
 <li>
@@ -1434,7 +2008,27 @@ do nothing on an attribute changed callback
 <div class="paragraph"><p>Events provide an asyncronous interface to remotely triggered actions. This covers broadcast methods in Franca IDL and change events for attributes Every proxy also provides an availabity event which can be used for notifications of the proxies status. The Events provide a subscribe and unsubscribe method which allow registration and de-registration of callbacks.</p></div>
 <div class="paragraph"><p>The relevant part of the public interface of the event class is as follows:</p></div>
 <div class="listingblock">
+<<<<<<< HEAD
 <div class="content"></div></div>
+=======
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">template</span></span><span style="color: #990000">&lt;</span><span style="font-weight: bold"><span style="color: #0000FF">typename</span></span><span style="color: #990000">...</span> _Arguments<span style="color: #990000">&gt;</span>
+<span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">Event</span> <span style="color: #FF0000">{</span>
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span><span style="color: #990000">:</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">typedef</span></span> <span style="color: #008080">uint32_t</span> Subscription<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">typedef</span></span> std<span style="color: #990000">::</span><span style="color: #008080">function&lt;void(const _Arguments&amp;...)&gt;</span> Listener<span style="color: #990000">;</span>
+
+    <span style="color: #008080">Subscription</span> <span style="font-weight: bold"><span style="color: #000000">subscribe</span></span><span style="color: #990000">(</span><span style="color: #008080">Listener</span> listener<span style="color: #990000">);</span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">unsubscribe</span></span><span style="color: #990000">(</span><span style="color: #008080">Subscription</span> subscription<span style="color: #990000">);</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">// Some more code here</span></span>
+
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span></tt></pre></div></div>
+>>>>>>> deea47cf89d131b1e485d970e83094a877a2405e
 <div class="ulist NOTE"><ul>
 <li>
 <p>
@@ -1464,41 +2058,121 @@ Your <em>Listener</em> will be called first time after your subscription and the
 <div class="sect3">
 <h4 id="_access_to_a_generic_static_runtime_object">Access to a generic, static runtime object</h4>
 <div class="listingblock">
+<<<<<<< HEAD
 <div class="content"></div></div>
+=======
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">static</span></span> std<span style="color: #990000">::</span><span style="color: #008080">shared_ptr&lt;Runtime&gt;</span> <span style="font-weight: bold"><span style="color: #000000">get</span></span><span style="color: #990000">();</span></tt></pre></div></div>
+>>>>>>> deea47cf89d131b1e485d970e83094a877a2405e
 </div>
 <div class="sect3">
 <h4 id="_configuration_properties">Configuration Properties</h4>
 <div class="listingblock">
+<<<<<<< HEAD
 <div class="content"></div></div>
+=======
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">static</span></span> std<span style="color: #990000">::</span><span style="color: #008080">string</span> <span style="font-weight: bold"><span style="color: #000000">getProperty</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> std<span style="color: #990000">::</span><span style="color: #008080">string</span> <span style="color: #990000">&amp;</span>_name<span style="color: #990000">);</span>
+<span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setProperty</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> std<span style="color: #990000">::</span><span style="color: #008080">string</span> <span style="color: #990000">&amp;</span>_name<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> std<span style="color: #990000">::</span><span style="color: #008080">string</span> <span style="color: #990000">&amp;</span>_value<span style="color: #990000">);</span></tt></pre></div></div>
+>>>>>>> deea47cf89d131b1e485d970e83094a877a2405e
 <div class="paragraph"><p>API for getting and setting configuration properties at runtime.</p></div>
 </div>
 <div class="sect3">
 <h4 id="_standard_build_proxy">Standard Build Proxy</h4>
 <div class="listingblock">
+<<<<<<< HEAD
 <div class="content"></div></div>
+=======
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">template</span></span><span style="color: #990000">&lt;</span> <span style="font-weight: bold"><span style="color: #0000FF">template</span></span><span style="color: #990000">&lt;</span><span style="font-weight: bold"><span style="color: #0000FF">typename</span></span> <span style="color: #990000">...&gt;</span> <span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">_ProxyClass</span><span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">typename</span></span> <span style="color: #990000">...</span> _AttributeExtensions <span style="color: #990000">&gt;</span>
+std<span style="color: #990000">::</span><span style="color: #008080">shared_ptr&lt; _ProxyClass&lt;_AttributeExtensions...&gt; &gt;</span> <span style="font-weight: bold"><span style="color: #000000">buildProxy</span></span><span style="color: #990000">(</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> std<span style="color: #990000">::</span><span style="color: #008080">string</span> <span style="color: #990000">&amp;</span>_domain<span style="color: #990000">,</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> std<span style="color: #990000">::</span><span style="color: #008080">string</span> <span style="color: #990000">&amp;</span>_instance<span style="color: #990000">,</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">ConnectionId_t</span> <span style="color: #990000">&amp;</span>_connectionId <span style="color: #990000">=</span> DEFAULT_CONNECTION_ID<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+
+           <span style="font-style: italic"><span style="color: #9A1900">// Implementation here</span></span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+>>>>>>> deea47cf89d131b1e485d970e83094a877a2405e
 <div class="paragraph"><p>The <em>buildProxy</em> method is a factory method for instantiating a proxy class for a certain instance of a certain interface. The generated proxy class for this interface is the template parameter <code>_ProxyClass</code>; <code>_domain</code> and <code>_instance</code> are parts of the CommonAPI address (see definition below). The <code>_connectionId</code> is an optional parameter which can be used to assign proxies to different logical connections. Each connection means an own receiver thread for incoming messages (no mainloop integration).</p></div>
 </div>
 <div class="sect3">
 <h4 id="_build_proxy_with_mainloop_integration">Build Proxy With Mainloop Integration</h4>
 <div class="listingblock">
+<<<<<<< HEAD
 <div class="content"></div></div>
+=======
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">template</span></span><span style="color: #990000">&lt;</span><span style="font-weight: bold"><span style="color: #0000FF">template</span></span><span style="color: #990000">&lt;</span><span style="font-weight: bold"><span style="color: #0000FF">typename</span></span> <span style="color: #990000">...&gt;</span> <span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">_ProxyClass</span><span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">typename</span></span> <span style="color: #990000">...</span> _AttributeExtensions <span style="color: #990000">&gt;</span>
+std<span style="color: #990000">::</span><span style="color: #008080">shared_ptr&lt; _ProxyClass&lt;_AttributeExtensions...&gt; &gt;</span> <span style="font-weight: bold"><span style="color: #000000">buildProxy</span></span><span style="color: #990000">(</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> std<span style="color: #990000">::</span><span style="color: #008080">string</span> <span style="color: #990000">&amp;</span>_domain<span style="color: #990000">,</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> std<span style="color: #990000">::</span><span style="color: #008080">string</span> <span style="color: #990000">&amp;</span>_instance<span style="color: #990000">,</span>
+    std<span style="color: #990000">::</span><span style="color: #008080">shared_ptr&lt;MainLoopContext&gt;</span> _context<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+
+           <span style="font-style: italic"><span style="color: #9A1900">// Implementation here</span></span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+>>>>>>> deea47cf89d131b1e485d970e83094a877a2405e
 <div class="paragraph"><p><em>buildProxy</em> method for the integration with external mainloops (no internal thread will be created). Create the mainloop context object by <code>std::make_shared &lt; CommonAPI::MainLoopContext &gt;</code>.</p></div>
 </div>
 <div class="sect3">
 <h4 id="_build_proxy_with_default_attribute_extension">Build Proxy With Default Attribute Extension</h4>
 <div class="listingblock">
+<<<<<<< HEAD
 <div class="content"></div></div>
+=======
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">template</span></span> <span style="color: #990000">&lt;</span><span style="font-weight: bold"><span style="color: #0000FF">template</span></span><span style="color: #990000">&lt;</span><span style="font-weight: bold"><span style="color: #0000FF">typename</span></span> <span style="color: #990000">...&gt;</span> <span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">_ProxyClass</span><span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">template</span></span><span style="color: #990000">&lt;</span><span style="font-weight: bold"><span style="color: #0000FF">typename</span></span><span style="color: #990000">&gt;</span> <span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">_AttributeExtension</span><span style="color: #990000">&gt;</span>
+std<span style="color: #990000">::</span>shared_ptr<span style="color: #990000">&lt;</span><span style="font-weight: bold"><span style="color: #0000FF">typename</span></span> <span style="color: #008080">DefaultAttributeProxyHelper</span><span style="color: #990000">&lt;</span>_ProxyClass<span style="color: #990000">,</span> _AttributeExtension<span style="color: #990000">&gt;::</span>class_t<span style="color: #990000">&gt;</span>
+    <span style="font-weight: bold"><span style="color: #000000">buildProxyWithDefaultAttributeExtension</span></span><span style="color: #990000">(</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> std<span style="color: #990000">::</span><span style="color: #008080">string</span> <span style="color: #990000">&amp;</span>_domain<span style="color: #990000">,</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> std<span style="color: #990000">::</span><span style="color: #008080">string</span> <span style="color: #990000">&amp;</span>_instance<span style="color: #990000">,</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">ConnectionId_t</span> <span style="color: #990000">&amp;</span>_connectionId <span style="color: #990000">=</span> DEFAULT_CONNECTION_ID<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+
+            <span style="font-style: italic"><span style="color: #9A1900">// Implementation here</span></span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+>>>>>>> deea47cf89d131b1e485d970e83094a877a2405e
 <div class="paragraph"><p><em>buildProxy</em> method without mainloop integration and with one default attribute extension for the whole proxy.</p></div>
 </div>
 <div class="sect3">
 <h4 id="_build_proxy_with_default_attribute_extension_and_mainloop_integration">Build Proxy With Default Attribute Extension And Mainloop Integration</h4>
 <div class="listingblock">
+<<<<<<< HEAD
 <div class="content"></div></div>
+=======
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">template</span></span> <span style="color: #990000">&lt;</span><span style="font-weight: bold"><span style="color: #0000FF">template</span></span><span style="color: #990000">&lt;</span><span style="font-weight: bold"><span style="color: #0000FF">typename</span></span> <span style="color: #990000">...&gt;</span> <span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">_ProxyClass</span><span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">template</span></span><span style="color: #990000">&lt;</span><span style="font-weight: bold"><span style="color: #0000FF">typename</span></span><span style="color: #990000">&gt;</span> <span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">_AttributeExtension</span><span style="color: #990000">&gt;</span>
+std<span style="color: #990000">::</span>shared_ptr<span style="color: #990000">&lt;</span><span style="font-weight: bold"><span style="color: #0000FF">typename</span></span> <span style="color: #008080">DefaultAttributeProxyHelper</span><span style="color: #990000">&lt;</span>_ProxyClass<span style="color: #990000">,</span> _AttributeExtension<span style="color: #990000">&gt;::</span>class_t<span style="color: #990000">&gt;</span>
+    <span style="font-weight: bold"><span style="color: #000000">buildProxyWithDefaultAttributeExtension</span></span><span style="color: #990000">(</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> std<span style="color: #990000">::</span><span style="color: #008080">string</span> <span style="color: #990000">&amp;</span>_domain<span style="color: #990000">,</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> std<span style="color: #990000">::</span><span style="color: #008080">string</span> <span style="color: #990000">&amp;</span>_instance<span style="color: #990000">,</span>
+        std<span style="color: #990000">::</span><span style="color: #008080">shared_ptr&lt;MainLoopContext&gt;</span> _context<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+
+            <span style="font-style: italic"><span style="color: #9A1900">// Implementation here</span></span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+>>>>>>> deea47cf89d131b1e485d970e83094a877a2405e
 <div class="paragraph"><p><em>buildProxy</em> method with mainloop context and with one default attribute extension for the whole proxy.</p></div>
 </div>
 <div class="sect3">
 <h4 id="_register_service">Register Service</h4>
 <div class="listingblock">
+<<<<<<< HEAD
 <div class="content"></div></div>
 <div class="paragraph"><p>The <em>registerService</em> method can be used very similar to the build proxy method on service side. Pass your the implementation of the generated stub as shared pointer (argument <code>std::shared_ptr&lt;_Stub&gt; _service</code>). On stub side there are no attribute extensions.</p></div>
 <div class="listingblock">
@@ -1506,6 +2180,49 @@ Your <em>Listener</em> will be called first time after your subscription and the
 <div class="paragraph"><p>The <em>registerService</em> method with mainloop context.</p></div>
 <div class="listingblock">
 <div class="content"></div></div>
+=======
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">template</span></span><span style="color: #990000">&lt;</span><span style="font-weight: bold"><span style="color: #0000FF">typename</span></span> <span style="color: #008080">_Stub</span><span style="color: #990000">&gt;</span>
+<span style="color: #009900">bool</span> <span style="font-weight: bold"><span style="color: #000000">registerService</span></span><span style="color: #990000">(</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> std<span style="color: #990000">::</span><span style="color: #008080">string</span> <span style="color: #990000">&amp;</span>_domain<span style="color: #990000">,</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> std<span style="color: #990000">::</span><span style="color: #008080">string</span> <span style="color: #990000">&amp;</span>_instance<span style="color: #990000">,</span>
+    std<span style="color: #990000">::</span><span style="color: #008080">shared_ptr&lt;_Stub&gt;</span> _service<span style="color: #990000">,</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">ConnectionId_t</span> <span style="color: #990000">&amp;</span>_connectionId <span style="color: #990000">=</span> DEFAULT_CONNECTION_ID<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+
+        <span style="font-style: italic"><span style="color: #9A1900">// Implementation here</span></span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="paragraph"><p>The <em>registerService</em> method can be used very similar to the build proxy method on service side. Pass your the implementation of the generated stub as shared pointer (argument <code>std::shared_ptr&lt;_Stub&gt; _service</code>). On stub side there are no attribute extensions.</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">template</span></span><span style="color: #990000">&lt;</span><span style="font-weight: bold"><span style="color: #0000FF">typename</span></span> <span style="color: #008080">_Stub</span><span style="color: #990000">&gt;</span>
+<span style="color: #009900">bool</span> <span style="font-weight: bold"><span style="color: #000000">registerService</span></span><span style="color: #990000">(</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> std<span style="color: #990000">::</span><span style="color: #008080">string</span> <span style="color: #990000">&amp;</span>_domain<span style="color: #990000">,</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> std<span style="color: #990000">::</span><span style="color: #008080">string</span> <span style="color: #990000">&amp;</span>_instance<span style="color: #990000">,</span>
+    std<span style="color: #990000">::</span><span style="color: #008080">shared_ptr&lt;_Stub&gt;</span> _service<span style="color: #990000">,</span>
+    std<span style="color: #990000">::</span><span style="color: #008080">shared_ptr&lt;MainLoopContext&gt;</span> _context<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+
+        <span style="font-style: italic"><span style="color: #9A1900">// Implementation here</span></span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="paragraph"><p>The <em>registerService</em> method with mainloop context.</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #009900">bool</span> <span style="font-weight: bold"><span style="color: #000000">unregisterService</span></span><span style="color: #990000">(</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> std<span style="color: #990000">::</span><span style="color: #008080">string</span> <span style="color: #990000">&amp;</span>_domain<span style="color: #990000">,</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> std<span style="color: #990000">::</span><span style="color: #008080">string</span> <span style="color: #990000">&amp;</span>_interface<span style="color: #990000">,</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> std<span style="color: #990000">::</span><span style="color: #008080">string</span> <span style="color: #990000">&amp;</span>_instance<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+
+        <span style="font-style: italic"><span style="color: #9A1900">// Implementation here</span></span>
+<span style="color: #FF0000">}</span></tt></pre></div></div>
+>>>>>>> deea47cf89d131b1e485d970e83094a877a2405e
 <div class="paragraph"><p>Unregister service.</p></div>
 </div>
 </div>
@@ -1513,7 +2230,28 @@ Your <em>Listener</em> will be called first time after your subscription and the
 <h3 id="_proxy_interface">Proxy Interface</h3>
 <div class="paragraph"><p>The proxy base class has the following interface (slightly simplified):</p></div>
 <div class="listingblock">
+<<<<<<< HEAD
 <div class="content"></div></div>
+=======
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">Proxy</span> <span style="color: #FF0000">{</span>
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span><span style="color: #990000">:</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #990000">~</span><span style="font-weight: bold"><span style="color: #000000">Proxy</span></span><span style="color: #990000">();</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">Address</span> <span style="color: #990000">&amp;</span><span style="font-weight: bold"><span style="color: #000000">getAddress</span></span><span style="color: #990000">()</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span><span style="color: #990000">;</span>
+    std<span style="color: #990000">::</span><span style="color: #008080">future&lt;void&gt;</span> <span style="font-weight: bold"><span style="color: #000000">getCompletionFuture</span></span><span style="color: #990000">();</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">bool</span> <span style="font-weight: bold"><span style="color: #000000">isAvailable</span></span><span style="color: #990000">()</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">bool</span> <span style="font-weight: bold"><span style="color: #000000">isAvailableBlocking</span></span><span style="color: #990000">()</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> ProxyStatusEvent<span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">getProxyStatusEvent</span></span><span style="color: #990000">()</span> <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">protected</span></span><span style="color: #990000">:</span>
+    <span style="color: #008080">Address</span> address_<span style="color: #990000">;</span>
+    std<span style="color: #990000">::</span><span style="color: #008080">promise&lt;void&gt;</span> completed_<span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span></tt></pre></div></div>
+>>>>>>> deea47cf89d131b1e485d970e83094a877a2405e
 <div class="ulist"><ul>
 <li>
 <p>
@@ -1548,7 +2286,36 @@ Calls to asynchronous methods do not wait for the initial availability status to
 </ul></div>
 <div class="paragraph"><p>The member variable <code>address_</code> is the address at which the service that shall be accessed will be available. The following extract shows the relevant parts of the address class:</p></div>
 <div class="listingblock">
+<<<<<<< HEAD
 <div class="content"></div></div>
+=======
+<div class="content"><!-- Generator: GNU source-highlight
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">class</span></span> <span style="color: #008080">Address</span> <span style="color: #FF0000">{</span>
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span><span style="color: #990000">:</span>
+
+    <span style="color: #009900">bool</span> <span style="font-weight: bold"><span style="color: #0000FF">operator</span></span><span style="color: #990000">&lt;(</span><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #008080">Address</span> <span style="color: #990000">&amp;</span>_other<span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span><span style="color: #990000">;</span>
+
+    std<span style="color: #990000">::</span><span style="color: #008080">string</span> <span style="font-weight: bold"><span style="color: #000000">getAddress</span></span><span style="color: #990000">()</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span><span style="color: #990000">;</span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setAddress</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> std<span style="color: #990000">::</span><span style="color: #008080">string</span> <span style="color: #990000">&amp;</span>_address<span style="color: #990000">);</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> std<span style="color: #990000">::</span><span style="color: #008080">string</span> <span style="color: #990000">&amp;</span><span style="font-weight: bold"><span style="color: #000000">getDomain</span></span><span style="color: #990000">()</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span><span style="color: #990000">;</span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setDomain</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> std<span style="color: #990000">::</span><span style="color: #008080">string</span> <span style="color: #990000">&amp;</span>_domain<span style="color: #990000">);</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> std<span style="color: #990000">::</span><span style="color: #008080">string</span> <span style="color: #990000">&amp;</span><span style="font-weight: bold"><span style="color: #000000">getInterface</span></span><span style="color: #990000">()</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span><span style="color: #990000">;</span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setInterface</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> std<span style="color: #990000">::</span><span style="color: #008080">string</span> <span style="color: #990000">&amp;</span>_interface<span style="color: #990000">);</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> std<span style="color: #990000">::</span><span style="color: #008080">string</span> <span style="color: #990000">&amp;</span><span style="font-weight: bold"><span style="color: #000000">getInstance</span></span><span style="color: #990000">()</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span><span style="color: #990000">;</span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setInstance</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> std<span style="color: #990000">::</span><span style="color: #008080">string</span> <span style="color: #990000">&amp;</span>_instance<span style="color: #990000">);</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">private</span></span><span style="color: #990000">:</span>
+    std<span style="color: #990000">::</span><span style="color: #008080">string</span> domain_<span style="color: #990000">;</span>
+    std<span style="color: #990000">::</span><span style="color: #008080">string</span> interface_<span style="color: #990000">;</span>
+    std<span style="color: #990000">::</span><span style="color: #008080">string</span> instance_<span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span></tt></pre></div></div>
+>>>>>>> deea47cf89d131b1e485d970e83094a877a2405e
 <div class="paragraph"><p>The CommonAPI address consists of three parts:</p></div>
 <div class="tableblock">
 <table rules="all"
@@ -1732,7 +2499,11 @@ GENIVI
 <div id="footer">
 <div id="footer-text">
 Last updated
+<<<<<<< HEAD
  2022-05-13 09:46:26 CST
+=======
+ 2022-05-13 14:03:10 CST
+>>>>>>> deea47cf89d131b1e485d970e83094a877a2405e
 </div>
 </div>
 </body>
