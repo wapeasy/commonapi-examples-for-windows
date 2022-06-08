@@ -1,0 +1,1327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+
+<article lang="en">
+<articleinfo>
+    <title>CommonAPI C++ Specification</title>
+    <date>13. May 2022</date>
+<revhistory><revision><date>13. May 2022</date></revision></revhistory>
+</articleinfo>
+<simpara>This is the specification for <emphasis role="strong">Common API </emphasis> released at 13. May 2022.</simpara>
+<sidebar>
+<title>Copyright and License</title>
+<simpara>Copyright &#169; 2015, BMW AG
+Copyright &#169; 2015, GENIVI Alliance, Inc.</simpara>
+<simpara>This file is part of the GENIVI IPC Common API C++ project.</simpara>
+<simpara>Contributions are licensed to the GENIVI Alliance under one or more
+Contribution License Agreements or MPL 2.0.</simpara>
+</sidebar>
+<simpara>IPC Common API is a C++ abstraction framework for <emphasis role="strong">Interprocess Communication</emphasis> (IPC). It is supposed to be neutral to IPC implementations and therefore can be used with any kind of IPC mechanism if a middleware specific <emphasis>IPC Common API binding</emphasis> is provided.</simpara>
+<simpara>IPC Common API allows applications (i.e., clients and servers using C++) developed against IPC Common API to be linked with different IPC Common API <emphasis>backends</emphasis> without any changes to the application code. Thus, components which have been developed for a system which uses specific IPC X could be deployed for another system which uses IPC Y easily - just by exchanging the IPC Common API backend without recompiling the application code.</simpara>
+<simpara>The actual interface definitions will be created using <ulink url="http://code.google.com/a/eclipselabs.org/p/franca/">Franca IDL</ulink>, which is the Common IDL solution favored by <ulink url="http://www.genivi.org/">GENIVI</ulink>.</simpara>
+<simpara>IPC Common API is not restricted to GENIVI members (see <ulink url="https://www.genivi.org/sites/default/files/genivi_public_newsletter_October_2013_liquid.html#LIC">public GENIVI licensing policy</ulink>). It is available as open source code, which is split into runtime code for the target system and code generation tooling (see <ulink url="http://projects.genivi.org/">http://projects.genivi.org/</ulink>) to be used on development systems.</simpara>
+<section id="_general_design">
+<title>General Design</title>
+<section id="_basic_assumptions">
+<title>Basic Assumptions</title>
+<itemizedlist>
+<listitem>
+<simpara>
+The applications use the client-server communication paradigm.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+The C++ API is based on the common interface description language Franca IDL which provides the possibility to specify interfaces independent from the platform, middleware or programming language. That means that the application specific part of the API is generated via a code generator from a Franca IDL specification file (see figure 1).
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+CommonAPI specifies only an API and not an concrete IPC mechanism. It can only be used with a language binding that has to be developed for a special middleware.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+In principle, the CommonAPI should be platform independent. However, this is without any restrictions very difficult to realize. Therefore it is agreed that CommonAPI attempts to use only features supported from the gnu C++ compiler version &lt;= 4.4.2. Please find supported <indexterm><primary>compiler</primary></indexterm>compiler and compiler versions in the NEWS file of the CommonAPI distribution.
+</simpara>
+</listitem>
+</itemizedlist>
+<figure><title>Code Generation from Franca IDL</title>
+<mediaobject>
+  <imageobject>
+  <imagedata fileref="../images/CodeGenerationFrancaIDL.png"/>
+  </imageobject>
+  <textobject><phrase>Code Generation image</phrase></textobject>
+</mediaobject>
+</figure>
+</section>
+<section id="_deployment">
+<title>Deployment</title>
+<simpara>One problem with definition of a middleware-independent C++ API is that depending on the middleware different configuration parameters for parts of the API could be necessary. Examples:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+QoS parameter
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Maximum length of arrays or strings
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Endianness of data
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Priorities
+</simpara>
+</listitem>
+</itemizedlist>
+<simpara>The Franca IDL offers the possibility to specify these kind of parameters which depend on the used middleware in a middleware-specific or platform-specific deployment model (*.depl file). The deployment parameters can be specified arbitrarily.</simpara>
+<simpara>But as indicated above it is an explicit goal that an application written against CommonAPI can be linked against different CommonAPI IPC backends without any changes to the application code. This goal brings an important implicit restriction:</simpara>
+<note><simpara>The interface defined in Franca IDL is the only information that should be used to generate the CommonAPI headers that define the implementation API. Deployment models that are specific to the IPC backend must not affect the generated API. But a non specific deployment model is allowed.</simpara></note>
+<figure><title>Deployment Concept</title>
+<mediaobject>
+  <imageobject>
+  <imagedata fileref="../images/Deployment.png"/>
+  </imageobject>
+  <textobject><phrase>Deployment image</phrase></textobject>
+</mediaobject>
+</figure>
+</section>
+<section id="_basic_parts_of_commonapi">
+<title>Basic Parts of CommonAPI</title>
+<simpara>CommonAPI can be divided up into two parts:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+The first part (Franca based part, generated by the CommonAPI code generator) refers to the variable (generated) part of the logical interface. That is the part of the interface which depends on the specifications in the Franca IDL file (data types, arrays, enumerations and interface basics as attributes, methods, callbacks, error handling, broadcast).
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+The second fixed part (CommonAPI Runtime features) which is mainly independent from the interface specifications. It refers to the CommonAPI library functions as service discovery, connect/disconnect, and address handling which relate primarily to the runtime environment provided by the underlying middleware. Furthermore this part contains common type definitions and base classes.
+</simpara>
+</listitem>
+</itemizedlist>
+</section>
+</section>
+<section id="_franca_based_part">
+<title>Franca based part</title>
+<section id="_namespaces">
+<title>Namespaces</title>
+<simpara>The <emphasis role="strong">namespace</emphasis> of the CommonAPI base functions is CommonAPI; the <emphasis>namespace</emphasis> of a CommonAPI application depends on the the qualified package name of the interface specification and of the interface version.</simpara>
+<informaltable
+frame="none"
+rowsep="0" colsep="0"
+>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="50*"/>
+<colspec colname="col_2" colwidth="50*"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><formalpara><title>FrancaIDL</title><para>
+<programlisting language="java" linenumbering="unnumbered">package example.user
+
+interface Test {
+    version { major 1 minor 0 }
+
+}</programlisting>
+</para></formalpara></entry>
+<entry align="left" valign="top"><formalpara><title>CommonAPI C++</title><para>
+<screen>namespace v1_0 {
+namespace example {
+namespace user {
+
+}
+}
+}</screen>
+</para></formalpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+<simpara>If the interface has no version the version dependent part in the C++ namespace is omitted.</simpara>
+</section>
+<section id="_data_types">
+<title>Data Types</title>
+<section id="_primitive_types">
+<title>Primitive Types</title>
+<simpara>The integer data types used by Common API are defined in <literal>stdint.h</literal>.</simpara>
+<table
+frame="all"
+rowsep="1" colsep="1"
+>
+<title>Mapping Of Franca Primitive Types With CommonAPI C++ Types</title>
+<?dbhtml table-width="100%"?>
+<?dbfo table-width="100%"?>
+<?dblatex table-width="100%"?>
+<tgroup cols="3">
+<colspec colname="col_1" colwidth="80*"/>
+<colspec colname="col_2" colwidth="133*"/>
+<colspec colname="col_3" colwidth="213*"/>
+<thead>
+<row>
+<entry align="left" valign="top">Franca Type Name </entry>
+<entry align="left" valign="top">CommonAPI C++ Type </entry>
+<entry align="left" valign="top">Notes</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara><literal>UInt8</literal></simpara></entry>
+<entry align="left" valign="top"><simpara><literal>uint8_t</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>unsigned 8-bit integer (range 0..255).</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>Int8</literal></simpara></entry>
+<entry align="left" valign="top"><simpara><literal>int8_t</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>signed 8-bit integer (range -128..127).</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>UInt16</literal></simpara></entry>
+<entry align="left" valign="top"><simpara><literal>uint16_t</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>unsigned 16-bit integer (range 0..65535).</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>Int16</literal></simpara></entry>
+<entry align="left" valign="top"><simpara><literal>int16_t</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>signed 16-bit integer (range -32768..32767).</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>UInt32</literal></simpara></entry>
+<entry align="left" valign="top"><simpara><literal>uint32_t</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>unsigned 32-bit integer (range 0..4294967295).</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>Int32</literal></simpara></entry>
+<entry align="left" valign="top"><simpara><literal>int32_t</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>signed 32-bit integer (range -2147483648..2147483647).</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>UInt64</literal></simpara></entry>
+<entry align="left" valign="top"><simpara><literal>uint64_t</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>unsigned 64-bit integer.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>Int64</literal></simpara></entry>
+<entry align="left" valign="top"><simpara><literal>int64_t</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>signed 64-bit integer.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>Boolean</literal></simpara></entry>
+<entry align="left" valign="top"><simpara><literal>bool</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>boolean value, which can take one of two values: false or true.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>Float</literal></simpara></entry>
+<entry align="left" valign="top"><simpara><literal>float</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>floating point number (4 bytes, range +/- 3.4e +/- 38, ~7 digits).</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>Double</literal></simpara></entry>
+<entry align="left" valign="top"><simpara><literal>double</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>double precision floating point number (8 bytes, range +/- 1.7e +/- 308, ~15 digits).</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>String</literal></simpara></entry>
+<entry align="left" valign="top"><simpara><literal>std::string</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>character string.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>ByteBuffer</literal></simpara></entry>
+<entry align="left" valign="top"><simpara><literal>std::vector&lt;uint8_t&gt;</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>buffer of bytes (aka BLOB).</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<simpara>Franca has only one string data type, and if necessary the wire format / <indexterm><primary>encoding</primary></indexterm>encoding can be specified via deployment model. The proxies always expect and deliver <emphasis role="strong">UTF-8</emphasis>.</simpara>
+</section>
+<section id="_arrays">
+<title>Arrays</title>
+<simpara>Franca <indexterm><primary>array</primary></indexterm>array types (in explicit and implicit notation) are mapped to <literal>std::vector&lt;T&gt;</literal>. While explicitly defined array types will be made available as typedef with the name as it was given in Franca IDL, the implicit version will just be generated as <literal>std::vector&lt;T&gt;</literal> wherever needed.</simpara>
+</section>
+<section id="_structures">
+<title>Structures</title>
+<simpara>Franca <literal>struct</literal> types are mapped to C++ <literal>struct</literal> types. Example:</simpara>
+<formalpara><title>FrancaIDL</title><para>
+<programlisting language="java" linenumbering="unnumbered">struct TestStruct {
+    UInt16 uintValue
+    String stringValue
+}</programlisting>
+</para></formalpara>
+<formalpara><title>CommonAPI C++</title><para>
+<programlisting language="c++" linenumbering="unnumbered">struct TestStruct : CommonAPI::Struct&lt;uint16_t, std::string&gt; {
+
+    TestStruct() {
+    }
+    TestStruct(const uint16_t &amp;_uintValue, const std::string &amp;_stringValue) {
+        std::get&lt;0&gt;(values_) = _uintValue;
+        std::get&lt;1&gt;(values_) = _stringValue;
+    }
+
+    inline const uint16_t &amp;getUintValue() const { return std::get&lt;0&gt;(values_); }
+    inline void setUintValue(const uint16_t &amp;_value) { std::get&lt;0&gt;(values_) = _value; }
+    inline const std::string &amp;getStringValue() const { return std::get&lt;1&gt;(values_); }
+        inline void setStringValue(const std::string &amp;_value) { std::get&lt;1&gt;(values_) = _value; }
+        bool operator==(const TestStruct &amp;_other) const;
+    inline bool operator!=(const TestStruct &amp;_other) const {
+        return !((*this) == _other);
+    }
+
+};</programlisting>
+</para></formalpara>
+<simpara>Structures are mapped to a (generated) <literal>struct</literal> which inherits from <literal>CommonAPI::Struct</literal>. <literal>CommonAPI::Struct</literal> holds the structured data in a tuple. The generated class provides getter- and setter-methods for the structure members.</simpara>
+<simpara>CommonAPI <literal>Struct</literal> base class (<emphasis>Struct.hpp</emphasis>):</simpara>
+<formalpara><title>CommonAPI C++</title><para>
+<programlisting language="c++" linenumbering="unnumbered">template&lt;typename... _Types&gt;
+struct Struct {
+    std::tuple&lt;_Types...&gt; values_;
+};</programlisting>
+</para></formalpara>
+<simpara>One problem is the possibility to inherit structures in Franca IDL. This feature is implemented by the code generator which generates the struct members of the base type into the extended type.</simpara>
+<simpara><emphasis role="strong">Polymorphic</emphasis> structs are mapped to an interface that is derived from the base class <literal>PolymorphicStruct</literal> and contain their parameter in a <literal>struct</literal>.</simpara>
+<formalpara><title>CommonAPI C++</title><para>
+<programlisting language="c++" linenumbering="unnumbered">struct PolymorphicStruct {
+    virtual const Serial getSerial() const = 0;
+};</programlisting>
+</para></formalpara>
+</section>
+<section id="_enumerations">
+<title>Enumerations</title>
+<simpara>Franca <indexterm><primary>enumerations</primary></indexterm>enumerations will be mapped to C++ structs which inherit from the base class <literal>CommonAPI::Enumeration</literal>. The Enum backing datatype and wire format by default is <literal>uint8_t</literal>. If needed, the wire format can be specified by a CommonAPI deployment file (enumeration backing type).</simpara>
+<simpara>Example:</simpara>
+<formalpara><title>FrancaIDL</title><para>
+<programlisting language="java" linenumbering="unnumbered">enumeration MyEnum {
+    E_UNKNOWN = "0x00"
+}
+
+enumeration MyEnumExtended extends MyEnum {
+    E_NEW = "0x01"
+}</programlisting>
+</para></formalpara>
+<formalpara><title>CommonAPI C++</title><para>
+<programlisting language="c++" linenumbering="unnumbered">struct MyEnum : CommonAPI::Enumeration&lt;int8_t&gt; {
+    MyEnum() = default;
+    MyEnum(const int8_t &amp;_value)
+        : CommonAPI::Enumeration&lt;int8_t&gt;(_value) {}
+    static const int8_t E_UNKNOWN = 0;
+};
+
+struct MyEnumExtended : MyEnum {
+    MyEnumExtended() = default;
+    MyEnumExtended(const int8_t &amp;_value)
+        : MyEnum(_value) {}
+    static const int8_t E_NEW = 1;
+};</programlisting>
+</para></formalpara>
+<note><simpara>In earlier versions of ComonAPI Franca enumerations were mapped to strongly typed C++11 enums. This was changed because CommonAPI needs for the new serialization/deserialization concept the possibility to cast CommonAPI enumerations implicitely to its base types.</simpara></note>
+<simpara>The neumeration base class looks like:</simpara>
+<formalpara><title>CommonAPI C++</title><para>
+<programlisting language="c++" linenumbering="unnumbered">template &lt;typename _Base&gt;
+struct Enumeration {
+
+    Enumeration() = default;
+    Enumeration(const _Base &amp;_value)
+        : value_(_value) {
+    }
+
+    inline Enumeration &amp;operator=(const _Base &amp;_value) {
+        value_ = _value;
+        return (*this);
+    }
+    inline operator const _Base() const {
+        return value_;
+    }
+    inline bool operator == (const Enumeration&lt;_Base&gt; &amp;_other) const {
+        return value_ == _other.value_;
+    }
+    inline bool operator != (const Enumeration&lt;_Base&gt; &amp;_other) const {
+        return value_ != _other.value_;
+    }
+
+    __Base value__;
+};</programlisting>
+</para></formalpara>
+</section>
+<section id="_maps">
+<title>Maps</title>
+<simpara>For efficiency reasons the CommonAPI data type for Franca <indexterm><primary>maps</primary></indexterm>maps is <literal>std::unordered_map&lt;K,V&gt;</literal>.</simpara>
+<informaltable
+frame="none"
+rowsep="0" colsep="0"
+>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="30*"/>
+<colspec colname="col_2" colwidth="70*"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><formalpara><title>FrancaIDL</title><para>
+<programlisting language="java" linenumbering="unnumbered">map MyMap {
+    UInt32 to String
+}</programlisting>
+</para></formalpara></entry>
+<entry align="left" valign="top"><formalpara><title>CommonAPI C++</title><para>
+<screen>typedef std::unordered_map&lt;uint32_t, std::string&gt; MyMap;</screen>
+</para></formalpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</section>
+<section id="_unions">
+<title>Unions</title>
+<simpara>Franca <indexterm><primary>union</primary></indexterm>union types are implemented as a typedef of CommonAPI generic templated C++ variant class.</simpara>
+<informaltable
+frame="none"
+rowsep="0" colsep="0"
+>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="40*"/>
+<colspec colname="col_2" colwidth="60*"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><formalpara><title>FrancaIDL</title><para>
+<programlisting language="java" linenumbering="unnumbered">union MyUnion {
+    UInt32 MyUInt
+    String MyString
+}</programlisting>
+</para></formalpara></entry>
+<entry align="left" valign="top"><formalpara><title>CommonAPI C++</title><para>
+<screen>typedef Variant&lt;uint32_t, std::string&gt; MyUnion;</screen>
+</para></formalpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+<simpara>This uses a variadic template to define the possible options, and implements operators in the expected fashion.</simpara>
+<simpara>Assignment works by constructor or assignment operator:</simpara>
+<programlisting language="c++" linenumbering="unnumbered">MyUnion union = 5;
+MyUnion stringUnion("my String");</programlisting>
+<simpara>Getting the contained value is done via a get method templated to the type desired for type safety. This results in a compile error if an impossible type is attempted to be fetched. In case of fetching a type which can be contained but is not an exception is thrown. The choice of an exception at this point is made for the following reasons:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+Returning pointers is inconvenient, especially in case of primitives.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Returning a temporary reference in case of failure is dangerous due to potential for segmentation faults in case of accidental use.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Returning a null heap object will be a memory leak if not deleted by the user.
+</simpara>
+</listitem>
+</itemizedlist>
+<programlisting language="c++" linenumbering="unnumbered">MyUnion union = 5;
+int a = union.get&lt;uint32_t&gt;(); //Works!
+std::string b = union.get&lt;std::string&gt;(); //Throws exception</programlisting>
+<simpara>Also available is an templated isType method to test for the contained type:</simpara>
+<programlisting language="c++" linenumbering="unnumbered">MyUnion union = 5;
+bool contained = union.isType&lt;uint32_t&gt;(); //True!
+contained = union.isType&lt;std::string&gt;(); //False!</programlisting>
+<note><simpara>To enable comparisons between variants in an inheritance hierarchy comparators have to be generated for the C++ types, as C++ as all <indexterm><primary>variants</primary></indexterm>variants are instances of the same generic class.</simpara></note>
+</section>
+<section id="_type_aliases">
+<title>Type Aliases</title>
+<simpara>Franca typedefs are mapped to C++ <literal>typedef</literal>.</simpara>
+</section>
+<section id="_type_collections">
+<title>Type Collections</title>
+<simpara>In Franca a set of user-defined types can be defined as <emphasis>type collection</emphasis>. The name of the type collection, referred to as <emphasis>typecollectionname</emphasis>, can be empty. CommonAPI uses for empty type collection the default name <emphasis>Anonymous</emphasis>.</simpara>
+<simpara>The CommonAPI code generator generates the header file <emphasis>Anonymous</emphasis>.hpp and creates a C++ <literal>struct</literal> for the type collection.</simpara>
+<formalpara><title>FrancaIDL</title><para>
+<programlisting language="java" linenumbering="unnumbered">package example.user
+
+typeCollection {
+    typedef a is Int16
+}</programlisting>
+</para></formalpara>
+<formalpara><title>CommonAPI C++</title><para>
+<programlisting language="c++" linenumbering="unnumbered">namespace example {
+namespace user {
+
+struct __Anonymous__ {
+    typedef int16_t a;
+
+    static inline const char* getTypeCollectionName() {
+        static const char* typeCollectionName = "example.user.__Anonymous__";
+        return typeCollectionName;
+    }
+}; // struct __Anonymous__
+
+} // namespace user
+} // namespace example</programlisting>
+</para></formalpara>
+<note><simpara>In the internal Franca model type collections are a base class of interfaces. Type collections also can have a version. In this case the namespace is exented like a generated version name (e.g. <literal>v1_0</literal>). The example does not contain any version, therefore the generated namespace only contains the package names.</simpara></note>
+</section>
+</section>
+<section id="_interfaces">
+<title>Interfaces</title>
+<section id="_basics">
+<title>Basics</title>
+<simpara>For the Franca interface name, referred to as <emphasis>interfacename</emphasis>, a class <literal>interfacename</literal> is generated which provides the methods <literal>getInterfaceName</literal> and <literal>getInterfaceVersion</literal>. The <indexterm><primary>version</primary></indexterm>version is mapped to a struct <literal>CommonAPI::Version</literal>.</simpara>
+<formalpara><title>FrancaIDL</title><para>
+<programlisting language="java" linenumbering="unnumbered">package commonapi.examples
+
+interface ExampleInterface {
+    version { major 1 minor 0 }
+}</programlisting>
+</para></formalpara>
+<formalpara><title>CommonAPI C++</title><para>
+<programlisting language="c++" linenumbering="unnumbered">namespace v1_0 {
+namespace commonapi {
+namespace examples {
+
+class ExampleInterface {
+public:
+    virtual ~ExampleInterface() { }
+
+    static inline const char* getInterface();
+    static inline CommonAPI::Version getInterfaceVersion();
+};
+
+const char* ExampleInterface::getInterface() {
+    return ("commonapi.examples.ExampleInterface");
+}
+
+CommonAPI::Version ExampleInterface::getInterfaceVersion() {
+    return CommonAPI::Version(1, 0);
+}
+
+
+} // namespace examples
+} // namespace commonapi
+} // namespace v1_0</programlisting>
+</para></formalpara>
+<simpara>The specification of the version structure is part of the namespace CommonAPI:</simpara>
+<programlisting language="c++" linenumbering="unnumbered">namespace CommonAPI {
+
+struct Version {
+    Version() = default;
+    Version(const uint32_t &amp;majorValue, const uint32_t &amp;minorValue)
+        : Major(majorValue), Minor(minorValue) {
+    }
+
+    uint32_t Major;
+    uint32_t Minor;
+};
+
+} // namespace CommonAPI</programlisting>
+<simpara>As described above it is a basic assumption that the applications use the client-server communication paradigm. That means that the CommonAPI code generator generates stub code for the server implementation and proxy code for the client implementation.</simpara>
+<simpara>At least the following files are generated:</simpara>
+<table
+frame="all"
+rowsep="1" colsep="1"
+>
+<title>Generated files of the CommmonAPI code generator for the example interface <literal>ExampleInterface</literal></title>
+<?dbhtml table-width="100%"?>
+<?dbfo table-width="100%"?>
+<?dblatex table-width="100%"?>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="213*"/>
+<colspec colname="col_2" colwidth="213*"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>ExampleInterface.hpp</simpara></entry>
+<entry align="left" valign="top"><simpara>Common header file for client and service</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>ExampleInterfaceProxy.hpp</simpara></entry>
+<entry align="left" valign="top"><simpara>proxy class</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>ExampleInterfaceProxyBase.hpp</simpara></entry>
+<entry align="left" valign="top"><simpara>base class for proxy</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>ExampleInterfaceStub.hpp</simpara></entry>
+<entry align="left" valign="top"><simpara>stub</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<simpara>The following picture shows the relationships between the proxy classes.</simpara>
+<figure><title>Proxy Classes</title>
+<mediaobject>
+  <imageobject>
+  <imagedata fileref="../images/Diag_GeneratedProxy.png"/>
+  </imageobject>
+  <textobject><phrase>Proxy image</phrase></textobject>
+</mediaobject>
+</figure>
+<simpara>On stub side it looks like this.</simpara>
+<figure><title>Stub Classes</title>
+<mediaobject>
+  <imageobject>
+  <imagedata fileref="../images/Diag_GeneratedStub.png"/>
+  </imageobject>
+  <textobject><phrase>Stub image</phrase></textobject>
+</mediaobject>
+</figure>
+</section>
+<section id="_methods">
+<title>Methods</title>
+<simpara>Franca IDL supports the definition of <indexterm><primary>methods</primary></indexterm>methods and <indexterm><primary>broadcasts</primary></indexterm>broadcasts. Methods can have several in and out parameters; if an additional flag <indexterm><primary>fireAndForget</primary></indexterm>fireAndForget is specified, no out parameters are permitted. Broadcasts can have only out parameters. Methods without the <literal>fireAndForget</literal> flag can return an error which can be specified in Franca IDL as an enumeration. For broadcasts an additional flag <literal>selective</literal> can be defined. This flag indicates that the message should not be sent to all registered participants but that the service makes a selection.</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+In Franca IDL there is no difference between an asynchronous or synchronous call of methods; the CommonAPI will provide both. The user of the API can decide which variant he calls.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+The CommonAPI does not provide the possibility to cancel asynchronous calls.
+</simpara>
+</listitem>
+</itemizedlist>
+<simpara>For methods without the <literal>fireAndForget</literal> flag an additional return value <indexterm><primary>CallStatus</primary></indexterm>CallStatus is provided which is defined as enumeration:</simpara>
+<programlisting language="c++" linenumbering="unnumbered">enum class CallStatus {
+    SUCCESS,
+    OUT_OF_MEMORY,
+    NOT_AVAILABLE,
+    CONNECTION_FAILED,
+    REMOTE_ERROR,
+    UNKNOWN,
+    INVALID_VALUE,
+    SUBSCRIPTION_REFUSED,
+    SERIALIZATION_ERROR
+};</programlisting>
+<simpara>The <literal>CallStatus</literal> defines the transport layer result of the call, i.e. it returns:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+SUCCESS, if the remote call returned successfully.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+OUT_OF_MEMORY, if sending the call or receiving the reply could not be completed due of a lack of memory.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+NOT_AVAILABLE, if the corresponding service for the remote method call is not available.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+CONNECTION_FAILED, if there is no connection to the communication medium available.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+REMOTE_ERROR, if the sent remote call does not return (in time). <emphasis role="strong">NOT</emphasis> considered to be a remote error is an application level error that is defined in the corresponding Franca interface, because from the point of view of the transport layer the service still returned a valid answer. It is considered to be a remote error if no answer for a sent remote method call is returned within a defined time. It is discouraged to allow the sending of any method calls without a defined timeout. The timeout can be configured by passing an optional parameter <literal>CallInfo</literal> to the method call or by the CommonAPI deployment.
+</simpara>
+</listitem>
+</itemizedlist>
+<programlisting language="c++" linenumbering="unnumbered">struct CallInfo {
+    CallInfo()
+        : timeout_(DEFAULT_SEND_TIMEOUT_MS), sender_(0) {
+    }
+    CallInfo(Timeout_t _timeout)
+        : timeout_(_timeout), sender_(0) {
+    }
+
+    Timeout_t timeout_;
+    Sender_t sender_;
+};</programlisting>
+<simpara>The structure timeout contains an additional member <literal>sender_</literal> which can be used to identify the caller of this function. The exact usage is binding specific.</simpara>
+<simpara>For the return parameters a function object is created which is passed to the asynchronous method call. This function object can then be used directly in the client application as function pointer to a callback function or be bound to a function with a different signature. The usage of <literal>std::bind</literal> is not enforced but must be possible. The bound callback function object will be called in any case:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+If the call returns successfully: Once the remote method call successfully returns, the callback function object is called with SUCCESS for its CallStatus and any received parameters.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+If a transport layer error occurs: If an error occurs that would trigger the method to return anything other but SUCCESS for its CallStatus, the callback has to be called with the corresponding CallStatus value. All other values that are input to the callback may remain unitialized in this case.
+</simpara>
+</listitem>
+</itemizedlist>
+<simpara>The asynchronous call returns the CallStatus as <indexterm><primary>future</primary></indexterm>future object. This allows the synchronization of asynchronous calls to a defined time. The future object will attain its value at the same time at which the callback function object is called.</simpara>
+<simpara>The following example shows the signatures of the generated functions. First, the Franca IDL example:</simpara>
+<programlisting language="java" linenumbering="unnumbered">package commonapi.examples
+
+interface ExampleInterface {
+
+    version { major 1 minor 0 }
+
+    method getProperty {
+        in {
+        UInt32 ID
+    }
+    out {
+        String Property
+    }
+    error {
+        OK
+        NOT_OK
+    }
+    }
+
+    method newMessage fireAndForget {
+    in {
+        String MessageName
+    }
+    }
+
+    broadcast signalChanged {
+    out {
+        UInt32 NewValue
+    }
+    }
+
+    broadcast signalSpecial selective {
+    out {
+        UInt32 MyValue
+    }
+    }
+}</programlisting>
+<simpara>See the generated function calls for the methods <emphasis>getProperty</emphasis> and <emphasis>newMessage</emphasis> on <emphasis role="strong">proxy side</emphasis>:</simpara>
+<programlisting language="c++" linenumbering="unnumbered">/* Calls getProperty with synchronous semantics. */
+virtual void getProperty(
+    const uint32_t &amp;_ID,
+    CommonAPI::CallStatus &amp;_status,
+    ExampleInterface::getPropertyError &amp;_error,
+    std::string &amp;_Property,
+    const CommonAPI::CallInfo *_info = nullptr);
+
+
+/* Calls getProperty with asynchronous semantics. */
+virtual std::future&lt;CommonAPI::CallStatus&gt; getPropertyAsync(
+    const uint32_t &amp;_ID,
+    GetPropertyAsyncCallback _callback,
+    const CommonAPI::CallInfo *_info = nullptr);
+
+/* Calls newMessage with Fire&amp;Forget semantics. */
+virtual void newMessage(const std::string &amp;_MessageName, CommonAPI::CallStatus &amp;_status);</programlisting>
+<itemizedlist>
+<listitem>
+<simpara>
+All const parameters are input parameters.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+All non-const parameters will be filled with the returned values.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+The CallStatus will be filled when the methods return and indicate either <literal>SUCCESS</literal> or which type of error has occurred. In case of an error, <emphasis role="strong">ONLY</emphasis> the CallStatus will be set.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+The provided callback of the asynchronous call will be called when the reply to this call arrives or an error occurs during the call. The <literal>std::future</literal> returned by this method will be fulfilled at arrival of the reply. It will provide the same value for CallStatus as will be handed to the callback.
+</simpara>
+</listitem>
+</itemizedlist>
+<simpara>On <emphasis role="strong">stub side</emphasis> the generated functions are part of the generated stub (<literal>ExampleInterfaceStub.hpp</literal>):</simpara>
+<programlisting language="c++" linenumbering="unnumbered">/* This is the method that will be called on remote calls on the method getProperty.*/
+virtual void getProperty(
+    const std::shared_ptr&lt;CommonAPI::ClientId&gt; _client,
+    uint32_t _ID,
+    getPropertyReply_t _reply) = 0;
+
+/* This is the method that will be called on remote calls on the method newMessage.*/
+virtual void newMessage(
+    const std::shared_ptr&lt;CommonAPI::ClientId&gt; _client,
+    std::string _MessageName) = 0;</programlisting>
+<simpara>These functions are pure virtual; that means that an implementation must be provided. A skeleton for this implementation can be generated by the code generator. The return values of the function call are wrapped into a function object:</simpara>
+<programlisting language="c++" linenumbering="unnumbered">typedef std::function&lt;void (ExampleInterface::getPropertyError _error, std::string _Property)&gt; getPropertyReply_t;</programlisting>
+<simpara>This allows it to pass this object to other functions in order to implement an asynchronous behavior on stub side.</simpara>
+<simpara>On stub side the additional parameter of type <emphasis>ClientId</emphasis> is passed. The <emphasis>ClientId</emphasis> identifies a client sending a call to a stub. It is used to identify the caller within a stub and is supposed to be added by the middleware and can be compared using the == operator. The ClientId class is declared as:</simpara>
+<programlisting language="c++" linenumbering="unnumbered">class ClientId {
+public:
+    virtual ~ClientId() { }
+    virtual bool operator==(ClientId&amp; clientIdToCompare) = 0;
+    virtual std::size_t hashCode() = 0;
+};</programlisting>
+<simpara>The pure virtual methods operator==() and hascode() have to be implemented by the middleware specific binding. Note that the value of the ClientId itself is irrelevant for CommonAPI. As API only the comparison operator is offered; the middleware specific identifier could be of any size as long as it is unique. The method <literal>hascode()</literal> is there so that the <literal>ClientId</literal> can be used as key in a hashmap.</simpara>
+<simpara>If we now consider the broadcast methods the generated functions on <emphasis role="strong">proxy side</emphasis> are:</simpara>
+<programlisting language="c++" linenumbering="unnumbered">virtual SignalChangedEvent&amp; getSignalChangedEvent() {
+    return delegate_-&gt;getSignalChangedEvent();
+}
+
+virtual SignalSpecialSelectiveEvent&amp; getSignalSpecialSelectiveEvent() {
+    return delegate_-&gt;getSignalSpecialSelectiveEvent();
+}</programlisting>
+<simpara>These methods return a wrapper class for an event that provides access to the broadcast <literal>signalChanged</literal> (see below in this specification the CommonAPI definition of events). The wrapper class provides the methods subscribe and unsubscribe. The private property <literal>delegate_</literal> is used for forwarding the function call to the specific binding.</simpara>
+<simpara>The generated stub provides methods to fire the broadcasts and some hooks:</simpara>
+<programlisting language="c++" linenumbering="unnumbered">virtual void fireSignalChangedEvent(const uint32_t &amp;_NewValue) = 0;
+
+virtual void fireSignalSpecialSelective(
+    const uint32_t &amp;_MyValue,
+    const std::shared_ptr&lt;CommonAPI::ClientIdList&gt; _receivers = nullptr) = 0;
+
+/* retreives the list of all subscribed clients for signalSpecial */
+virtual std::shared_ptr&lt;CommonAPI::ClientIdList&gt; const getSubscribersForSignalSpecialSelective() = 0;
+
+/* Hook method for reacting on new subscriptions or
+   removed subscriptions respectively for selective broadcasts.*/
+virtual void onSignalSpecialSelectiveSubscriptionChanged(
+    const std::shared_ptr&lt;CommonAPI::ClientId&gt; _client,
+    const CommonAPI::SelectiveBroadcastSubscriptionEvent _event) = 0;
+
+/* Hook method for reacting accepting or denying new subscriptions */
+virtual bool onSignalSpecialSelectiveSubscriptionRequested(
+    const std::shared_ptr&lt;CommonAPI::ClientId&gt; _client) = 0;</programlisting>
+<simpara>Note that the Franca keyword <emphasis>selective</emphasis> is implemented only on stub side by using the <emphasis>ClientId</emphasis> and the provided hooks.</simpara>
+<note><simpara>The <emphasis>ClientId</emphasis> can be generated only on the stub side due to middleware specific data that can be composed entirely arbitrary.</simpara></note>
+</section>
+<section id="_attributes">
+<title>Attributes</title>
+<simpara>An attribute of an interface is defined by name and type. Additionally the specification of an attribute can have two flags:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+<literal>noSubscriptions</literal>
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<literal>readonly</literal>
+</simpara>
+</listitem>
+</itemizedlist>
+<simpara>CommonAPI provides a basic implementation of the attribute interface and a mechanism for so-called <indexterm><primary>extensions</primary></indexterm>extensions. The basic implementation is shown in the example below. There are four possible combinations of flags:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+standard attributes with no additional flag.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+readonly attributes (readonly flag is set).
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+non observable attributes (noSubscription flag).
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+and non observable and non writable attributes (both flags are set).
+</simpara>
+</listitem>
+</itemizedlist>
+<simpara>Attributes which are non readable but only writable are not supported by Franca IDL and CommonAPI.</simpara>
+<simpara>Template classes for each of those four types of attributes are defined in the header file Attribute.h. The CommonAPI provides a getter function which returns a reference to an instance of the appropriate attribute template class.</simpara>
+<figure><title>Attributes</title>
+<mediaobject>
+  <imageobject>
+  <imagedata fileref="../images/Diag_Attributes.png"/>
+  </imageobject>
+  <textobject><phrase>Attribute image</phrase></textobject>
+</mediaobject>
+</figure>
+<simpara>Observable attributes provide a ChangedEvent which can be used to subscribe to updates to the attribute. This Event works exactly as all other events (see description below). By default, the attributes are not cached in client side. Creating a cache on client side is not an implementation-specific detail that should be a part of the logical interface specification, nor is it a platform- or middleware-dependent parameter. Moreover, the requirements for an attribute cache can be very different depending on the application specific use case. Differences in points of view include, but are not limited to:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+Is the cache value to be updated on any value changed event or is it to be updated periodically?
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Should calls to getters of potentially cached values be blocking or non-blocking?
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Should caching be configurable per attribute or per proxy, or should caching always be enabled?
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Is getting a cached value a distinct method call or is it to be included transparently within the standard getter methods?
+</simpara>
+</listitem>
+</itemizedlist>
+<simpara>Because of this, there is a general scheme to include individual extensions in order to provide any additional features for attributes (Attribute Extensions). This would prevent an exponential growth of configuration possibilities within the Common API and also relieve Common API developers from the necessity to always implement all specified features for their specific middleware, regardless of whether the feature is supported by the middleware or not. On the other hand, it gives complete freedom to application developers to add an implementation for their specific needs to attribute handling.</simpara>
+<simpara>The basic principle is that the user of the API has to implement an extension class that is derived from the base class <literal>AttributeExtension</literal>. The <literal>AttributeExtension</literal> is packed in a wrapper class which in turn is generated for each attribute the Proxy has. A wrapper for a given attribute only then is mixed into the proxy if an extension for this given attribute is defined during construction time. The wrapper forwards the correct attribute to the constructor of the extension, so that the extension sees nothing but the attribute it should extend. Wrappers are written as templates, so that all wrappers can be reused for all attributes of the same category. As soon as an extension for an attribute is defined during construction time, the extension class will be instantiated and a method to retrieve the extended attribute will be added to the proxy.</simpara>
+<simpara>Such an solution requires the proxy to be made ready for mixins. The proxy inherits from all mixins that are defined during construction time, so that their interface is added directly to the proxy itself. The interface that would be added to the proxies in our case would be the interface of the defined attribute extension wrappers, which in turn provide access to the actual attribute extensions. By using variadic templates the amount of possible mixins is arbitrary.</simpara>
+<note><simpara>Because a given proxy may not inherit from the same class twice, only one extension per attribute per proxy is possible.</simpara></note>
+<simpara>The base class for extensions is defined in <literal>AttributeExtension.hpp</literal>.</simpara>
+<simpara>The CommonAPI for attributes on <emphasis role="strong">stub side</emphasis> looks like this when we only consider the attribute <literal>A</literal>:</simpara>
+<programlisting language="c++" linenumbering="unnumbered">class ExampleInterfaceStub
+    : public virtual CommonAPI::Stub&lt;ExampleInterfaceStubAdapter, ExampleInterfaceStubRemoteEvent&gt; {
+public:
+
+    // Other code here
+
+    /* Provides getter access to the attribute a */
+    virtual const uint32_t &amp;getAAttribute(const std::shared_ptr&lt;CommonAPI::ClientId&gt; _client) = 0;
+
+    // Other code here
+};</programlisting>
+<simpara>The attribue <literal>a</literal> is stored in the default implementation of the stub class as private member. The get function has to be implemented by the application, e.g.:</simpara>
+<programlisting language="c++" linenumbering="unnumbered">const uint32_t&amp; ExampleInterfaceStubImpl::getAAttribute() {
+    return aAttributeValue_;
+}</programlisting>
+<simpara>Furthermore CommonAPI defines the necessary callbacks to handle remote set events related to the attributes defined in the IDL description for ExampleInterface. For each attribute two callbacks are defined in the class ExampleInterfaceStubRemoteEvent:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+a verification callback that allows to verify the requested value and to prevent setting, e.g. an invalid value ("onRemoteSet&lt;AttributeName&gt;").
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+an action callback to do local work after the attribute value has been changed ("onRemote&lt;AttributeName&gt;Changed").
+</simpara>
+</listitem>
+</itemizedlist>
+<programlisting language="c++" linenumbering="unnumbered">class ExampleInterfaceStubRemoteEvent {
+public:
+    virtual ~ExampleInterfaceStubRemoteEvent() { }
+
+    /* Verification callback for remote set requests on the attribute a */
+    virtual bool onRemoteSetAAttribute(const std::shared_ptr&lt;CommonAPI::ClientId&gt; _client, uint32_t a) = 0;
+    /* Action callback for remote set requests on the attribute a */
+    virtual void onRemoteAAttributeChanged() = 0;
+};</programlisting>
+<simpara>An implementation could be:</simpara>
+<programlisting language="c++" linenumbering="unnumbered">bool ExampleInterfaceStubSkel::RemoteEventHandler::onRemoteSetAAttribute(uint32_t _value) {
+
+    const bool valueChanged = (aAttributeValue_ != _value);
+    aAttributeValue_ = std::move(_value);
+    return valueChanged;
+}</programlisting>
+<simpara>An API for sending broadcasts and attribute-changed-notifications of observable attributes is provided by the class ExampleInterfaceStubAdapter:</simpara>
+<programlisting language="c++" linenumbering="unnumbered">class ExampleInterfaceStubAdapter
+    : virtual public CommonAPI::StubAdapter,
+      public ExampleInterface {
+ public:
+    virtual void fireAAttributeChanged(const uint32_t&amp; a) = 0;
+
+};</programlisting>
+<simpara>The fireAAttributeChanged method can be used in an implementation like this:</simpara>
+<programlisting language="c++" linenumbering="unnumbered">void ExampleInterfaceStubImpl::setAAttribute(uint32_t _value) {
+
+    if (valueChanged &amp;&amp; stubAdapter_ != NULL) {
+        stubAdapter_-&gt;fireAAttributeChanged(aAttributeValue_);
+    }
+}</programlisting>
+<simpara>If skeletons for the stubs are generated (code generator option), they do:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+nothing on method calls
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+return the new value of an attribute on a verify callback
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+do nothing on an attribute changed callback
+</simpara>
+</listitem>
+</itemizedlist>
+</section>
+<section id="_events">
+<title>Events</title>
+<simpara>Events provide an asyncronous interface to remotely triggered actions. This covers broadcast methods in Franca IDL and change events for attributes Every proxy also provides an availabity event which can be used for notifications of the proxies status. The Events provide a subscribe and unsubscribe method which allow registration and de-registration of callbacks.</simpara>
+<simpara>The relevant part of the public interface of the event class is as follows:</simpara>
+<programlisting language="c++" linenumbering="unnumbered">template&lt;typename... _Arguments&gt;
+class Event {
+public:
+
+    typedef uint32_t Subscription;
+    typedef std::function&lt;void(const _Arguments&amp;...)&gt; Listener;
+
+    Subscription subscribe(Listener listener);
+    void unsubscribe(Subscription subscription);
+
+    // Some more code here
+
+};</programlisting>
+<itemizedlist>
+<listitem>
+<simpara>
+Your <emphasis>Listener</emphasis> will be called first time after your subscription and then on any time when there is a new event (e.g. the attribute has changed).
+</simpara>
+</listitem>
+</itemizedlist>
+</section>
+</section>
+</section>
+<section id="_runtime">
+<title>Runtime</title>
+<section id="_runtime_interface">
+<title>Runtime Interface</title>
+<simpara>The Common API <indexterm><primary>Runtime</primary></indexterm>Runtime is the base class from which all class loading starts. The Common API Runtime accesses a config file to determine which specific middleware runtime library shall be loaded. Middleware libraries are either linked statically or are provided as shared objects (file extension .so), so they can be loaded dynamically.</simpara>
+<note><simpara>The Runtime has no reference to any specific middleware. The used middleware is part of the CommonAPI configuration settings.</simpara></note>
+<simpara>The public interface of the runtime class provides the following functions:</simpara>
+<section id="_access_to_a_generic_static_runtime_object">
+<title>Access to a generic, static runtime object</title>
+<programlisting language="c++" linenumbering="unnumbered">static std::shared_ptr&lt;Runtime&gt; get();</programlisting>
+</section>
+<section id="_configuration_properties">
+<title>Configuration Properties</title>
+<programlisting language="c++" linenumbering="unnumbered">static std::string getProperty(const std::string &amp;_name);
+static void setProperty(const std::string &amp;_name, const std::string &amp;_value);</programlisting>
+<simpara>API for getting and setting configuration properties at runtime.</simpara>
+</section>
+<section id="_standard_build_proxy">
+<title>Standard Build Proxy</title>
+<programlisting language="c++" linenumbering="unnumbered">template&lt; template&lt;typename ...&gt; class _ProxyClass, typename ... _AttributeExtensions &gt;
+std::shared_ptr&lt; _ProxyClass&lt;_AttributeExtensions...&gt; &gt; buildProxy(
+    const std::string &amp;_domain,
+    const std::string &amp;_instance,
+    const ConnectionId_t &amp;_connectionId = DEFAULT_CONNECTION_ID) {
+
+           // Implementation here
+}</programlisting>
+<simpara>The <emphasis>buildProxy</emphasis> method is a factory method for instantiating a proxy class for a certain instance of a certain interface. The generated proxy class for this interface is the template parameter <literal>_ProxyClass</literal>; <literal>_domain</literal> and <literal>_instance</literal> are parts of the CommonAPI address (see definition below). The <literal>_connectionId</literal> is an optional parameter which can be used to assign proxies to different logical connections. Each connection means an own receiver thread for incoming messages (no mainloop integration).</simpara>
+</section>
+<section id="_build_proxy_with_mainloop_integration">
+<title>Build Proxy With Mainloop Integration</title>
+<programlisting language="c++" linenumbering="unnumbered">template&lt;template&lt;typename ...&gt; class _ProxyClass, typename ... _AttributeExtensions &gt;
+std::shared_ptr&lt; _ProxyClass&lt;_AttributeExtensions...&gt; &gt; buildProxy(
+    const std::string &amp;_domain,
+    const std::string &amp;_instance,
+    std::shared_ptr&lt;MainLoopContext&gt; _context) {
+
+           // Implementation here
+}</programlisting>
+<simpara><emphasis>buildProxy</emphasis> method for the integration with external mainloops (no internal thread will be created). Create the mainloop context object by <literal>std::make_shared &lt; CommonAPI::MainLoopContext &gt;</literal>.</simpara>
+</section>
+<section id="_build_proxy_with_default_attribute_extension">
+<title>Build Proxy With Default Attribute Extension</title>
+<programlisting language="c++" linenumbering="unnumbered">template &lt;template&lt;typename ...&gt; class _ProxyClass, template&lt;typename&gt; class _AttributeExtension&gt;
+std::shared_ptr&lt;typename DefaultAttributeProxyHelper&lt;_ProxyClass, _AttributeExtension&gt;::class_t&gt;
+    buildProxyWithDefaultAttributeExtension(
+        const std::string &amp;_domain,
+        const std::string &amp;_instance,
+        const ConnectionId_t &amp;_connectionId = DEFAULT_CONNECTION_ID) {
+
+            // Implementation here
+}</programlisting>
+<simpara><emphasis>buildProxy</emphasis> method without mainloop integration and with one default attribute extension for the whole proxy.</simpara>
+</section>
+<section id="_build_proxy_with_default_attribute_extension_and_mainloop_integration">
+<title>Build Proxy With Default Attribute Extension And Mainloop Integration</title>
+<programlisting language="c++" linenumbering="unnumbered">template &lt;template&lt;typename ...&gt; class _ProxyClass, template&lt;typename&gt; class _AttributeExtension&gt;
+std::shared_ptr&lt;typename DefaultAttributeProxyHelper&lt;_ProxyClass, _AttributeExtension&gt;::class_t&gt;
+    buildProxyWithDefaultAttributeExtension(
+        const std::string &amp;_domain,
+        const std::string &amp;_instance,
+        std::shared_ptr&lt;MainLoopContext&gt; _context) {
+
+            // Implementation here
+}</programlisting>
+<simpara><emphasis>buildProxy</emphasis> method with mainloop context and with one default attribute extension for the whole proxy.</simpara>
+</section>
+<section id="_register_service">
+<title>Register Service</title>
+<programlisting language="c++" linenumbering="unnumbered">template&lt;typename _Stub&gt;
+bool registerService(
+    const std::string &amp;_domain,
+    const std::string &amp;_instance,
+    std::shared_ptr&lt;_Stub&gt; _service,
+    const ConnectionId_t &amp;_connectionId = DEFAULT_CONNECTION_ID) {
+
+        // Implementation here
+}</programlisting>
+<simpara>The <emphasis>registerService</emphasis> method can be used very similar to the build proxy method on service side. Pass your the implementation of the generated stub as shared pointer (argument <literal>std::shared_ptr&lt;_Stub&gt; _service</literal>). On stub side there are no attribute extensions.</simpara>
+<programlisting language="c++" linenumbering="unnumbered">template&lt;typename _Stub&gt;
+bool registerService(
+    const std::string &amp;_domain,
+    const std::string &amp;_instance,
+    std::shared_ptr&lt;_Stub&gt; _service,
+    std::shared_ptr&lt;MainLoopContext&gt; _context) {
+
+        // Implementation here
+}</programlisting>
+<simpara>The <emphasis>registerService</emphasis> method with mainloop context.</simpara>
+<programlisting language="c++" linenumbering="unnumbered">bool unregisterService(
+    const std::string &amp;_domain,
+    const std::string &amp;_interface,
+    const std::string &amp;_instance) {
+
+        // Implementation here
+}</programlisting>
+<simpara>Unregister service.</simpara>
+</section>
+</section>
+<section id="_proxy_interface">
+<title>Proxy Interface</title>
+<simpara>The proxy base class has the following interface (slightly simplified):</simpara>
+<programlisting language="c++" linenumbering="unnumbered">class Proxy {
+public:
+    virtual ~Proxy();
+
+    const Address &amp;getAddress() const;
+    std::future&lt;void&gt; getCompletionFuture();
+    virtual bool isAvailable() const = 0;
+    virtual bool isAvailableBlocking() const = 0;
+    virtual ProxyStatusEvent&amp; getProxyStatusEvent() = 0;
+
+protected:
+    Address address_;
+    std::promise&lt;void&gt; completed_;
+};</programlisting>
+<itemizedlist>
+<listitem>
+<simpara>
+<emphasis>isAvailable</emphasis> is a non-blocking check whether the remote service for this proxy currently is available. Always returns false until the availability of the proxy is determined. The proxy actively determines its availability status asynchronously and ASAP as soon as it is created, and maintains the correct state afterwards.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<emphasis>isAvailableBlocking</emphasis> blocks until the service is available.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<emphasis>getCompletionFuture</emphasis> returns the std::future associated with std::promise variable <literal>completed_</literal>, which is fulfilled when the proxy destructor is called. Hence the future object returned is useful to determine when the last reference to a proxy by std::shared_ptr&lt;..Proxy&gt; has been released (what includes internal references from CommonAPI bindings, which may not be controlled by the user directly). Note that <emphasis>getCompletionFuture</emphasis> can only be invoked once per proxy, otherwise future_already_retrieved exception is thrown, i.e. when sharing the future&#8217;s state is desired, returned std::future can be converted into a std::shared_future at the user&#8217;s discretion.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+You may subscribe to the <emphasis>ProxyStatusEvent</emphasis> in order to have a callback notified whenever the availability status of the proxy changes. It is guaranteed that the callback is notified of the proxy&#8217;s currently known availability status at the same instant in which the subscription is done (i.e. the callback will most likely be called with a value of false if you subscribe for this event right after the proxy has been instantiated).
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Calls to synchronous methods will block until the initial availability status of the proxy is determined. As soon as the availability status has been determined at least once, calls to synchronous methods will return NOT_AVAILABLE as value for the CallStatus whenever isAvailable() would return false.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Calls to asynchronous methods do not wait for the initial availability status to be determined. Calls to asynchronous methods will instantly call the given callback with NOT_AVAILABLE as value for the CallStatus whenever isAvailable() would return false.
+</simpara>
+</listitem>
+</itemizedlist>
+<simpara>The member variable <literal>address_</literal> is the address at which the service that shall be accessed will be available. The following extract shows the relevant parts of the address class:</simpara>
+<programlisting language="c++" linenumbering="unnumbered">class Address {
+public:
+
+    bool operator&lt;(const Address &amp;_other) const;
+
+    std::string getAddress() const;
+    void setAddress(const std::string &amp;_address);
+
+    const std::string &amp;getDomain() const;
+    void setDomain(const std::string &amp;_domain);
+
+    const std::string &amp;getInterface() const;
+    void setInterface(const std::string &amp;_interface);
+
+    const std::string &amp;getInstance() const;
+    void setInstance(const std::string &amp;_instance);
+
+private:
+    std::string domain_;
+    std::string interface_;
+    std::string instance_;
+};</programlisting>
+<simpara>The CommonAPI address consists of three parts:</simpara>
+<informaltable
+frame="all"
+rowsep="1" colsep="1"
+>
+<?dbhtml table-width="80%"?>
+<?dbfo table-width="80%"?>
+<?dblatex table-width="80%"?>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="78*"/>
+<colspec colname="col_2" colwidth="262*"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara><emphasis>Interface Name</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>This is the name of the interface the proxy or stub was built for. If not configured otherwise this is the full qualified name of the Franca interface.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis>Instance Name</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>This is an arbitrary name for the instance of the interface implementation.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis>Domain</emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara>The domain is again an arbitrary name; the default name is <literal>local</literal>.</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+<simpara>The member variable <literal>completed_</literal> keeps the std::promise which is fulfilled in case the proxy is destroyed, in order to signal the std::future returned by <literal>getCompletionFuture</literal>, what allows users to find out when a proxy is asctually destroyed, e.g. it is useful to find out when it is safe to free callbacks previously passed to a proxy. As proxy instance lifetime is controlled by std::shared_ptr it might not always been clear when the last reference from a std::shared_ptr has been released, thus a proxy is destroyed.</simpara>
+</section>
+<section id="_configuring_commonapi">
+<title>Configuring CommonAPI</title>
+<simpara>There are basically two possibilities to realize a specific behavior of your interface or to realize new features:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+As described above the middleware implementation can be changed without changing the API for the applications. Changes in the configuration in the middleware or platform can be realized by changing the deployment specification and the deployment settings in the *.depl files.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+For attributes (see specification below) there is the possibility to define and implement so-called extensions. This allows the developer to extend the standard framework with own implementations in a predefined and specified way. One example is to implement a cache for attributes on proxy side.
+</simpara>
+</listitem>
+</itemizedlist>
+<simpara>CommonAPI has an own deployment specification which is part of the CommonAPI code generator. All deployment parameters for CommonAPI itself must be optional.</simpara>
+<simpara>The CommonAPI runtime and available bindings can be configured by ini-files. The CommonAPI configuration file is <literal>commonapi.ini</literal>. There are three places where CommonAPI Runtime tries to find this file (in the following order):</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>
+in the directory of the current executable. If there is a <literal>commonapi.ini</literal> file, it has the highest priority.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+in the directory which is specified by the environment variable <literal>COMMONAPI_CONFIG</literal>.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+in the global default directory <literal>/etc</literal>.
+</simpara>
+</listitem>
+</orderedlist>
+<simpara>The configuration file has at least the following sections; all sections are optional.</simpara>
+<informaltable
+frame="all"
+rowsep="1" colsep="1"
+>
+<?dbhtml table-width="80%"?>
+<?dbfo table-width="80%"?>
+<?dblatex table-width="80%"?>
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="78*"/>
+<colspec colname="col_2" colwidth="262*"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara><literal>logging</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Settings for the internal CommonAPI logging.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>default</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>Default name of the binding and Call Timeout.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>proxy</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>This section defines for each required CommonAPI address the shared library with the binding specific, generated glue code which has to be loaded when the proxy is created: <emphasis>&lt;CommonAPI address&gt;</emphasis>=<emphasis>&lt;library name&gt;</emphasis></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><literal>stub</literal></simpara></entry>
+<entry align="left" valign="top"><simpara>This section defines for each required CommonAPI address the shared library with the binding specific, generated glue code which has to be loaded when the stub is registered: <emphasis>&lt;CommonAPI address&gt;</emphasis>=<emphasis>&lt;library name&gt;</emphasis></simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</section>
+<section id="_mainloop_integration">
+<title>Mainloop Integration</title>
+<simpara>As it is described in the chapter <emphasis>Runtime Class</emphasis> CommonAPI supports multithreaded execution (standard threading) as well as single threaded execution (mainloop integration). In the multithreaded case the number of threads depends on the number of different connection IDs.</simpara>
+<simpara>In the case of mainloop integration a so-called <emphasis>MainLoopContext</emphasis> must be instantiated and passed to the <emphasis>buildProxy</emphasis> or <emphasis>registerService</emphasis> method. The <literal>CommonAPI::MainLoopContext</literal> provides nothing but hooks for callbacks that will be called on specific binding internal events. Internal events may be</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+(De-)Registration of a <literal>CommonAPI::DispatchSource</literal>
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+(De-)Registration of a <literal>CommonAPI::Watch</literal>
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+(De-)Registration of a <literal>CommonAPI::Timeout</literal>
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Issuing of a wakeup call
+</simpara>
+</listitem>
+</itemizedlist>
+<simpara>Each of these calls has to be mapped to an appropriate method in the context of the actual Mainloop that does the single threaded execution. CommonAPI does <emphasis role="strong">NOT</emphasis> provide a fully fledged implementation for a Mainloop!</simpara>
+<simpara>What the mainloop related interfaces are meant for is this:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+<literal>CommonAPI::DispatchSource</literal>: Hooks that may have work ready that is to be done, e.g. dispatching a method call to a stub, dispatching a method return to a proxy callback and the like. There is no constraint on what kind of work may be represented by a DispatchSource, <emphasis role="strong">BUT</emphasis> a dispatch source may <emphasis role="strong">NOT</emphasis> be directly related to a file descriptor that is used to actually read or write the incoming or outgoing transmission from or to a transport!
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<literal>CommonAPI::Watch</literal>: Work that is related to a file descriptor that is used for reading from or writing to a transport is represented by Watches. <emphasis role="strong">ANY</emphasis> work that is not directly related to such a file descriptor may <emphasis role="strong">NOT</emphasis> be represented by watches!
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<literal>CommonAPI::Timeout</literal>: Represents the work that has to be done when a timeout occurs (e.g. deleting the structures that are used to identify an answer to an asynchronous call and calling the callback that is waiting for it with an appropriate error flag). A timeout stores internally both the interval of time within which it is to be dispatched, and the next moment in time the timeout is to be dispatched.
+</simpara>
+</listitem>
+</itemizedlist>
+<simpara>A binding developer <emphasis role="strong">MUST</emphasis> provide his own implementations for at least DispatchSource and Watch in order to ensure the functionality of his respective CommonAPI binding in the single threaded case, and must ensure that the appropriate instances of those classes are handed to the application via the MainLoopContext that was handed to the factory that is used to instantiate proxies and stubs.</simpara>
+<simpara>An application developer <emphasis role="strong">MAY</emphasis> provide additional implementations of all these classes.</simpara>
+</section>
+</section>
+<glossary id="_glossary">
+<title>Glossary</title>
+<glossentry>
+<glossterm>
+BLOB
+</glossterm>
+<glossdef>
+<simpara>
+  Binary Large Object.
+</simpara>
+</glossdef>
+</glossentry>
+<glossentry>
+<glossterm>
+IDL
+</glossterm>
+<glossdef>
+<simpara>
+  Interface Description Language.
+</simpara>
+</glossdef>
+</glossentry>
+<glossentry>
+<glossterm>
+IPC
+</glossterm>
+<glossdef>
+<simpara>
+  Interprocess Communication.
+</simpara>
+</glossdef>
+</glossentry>
+<glossentry>
+<glossterm>
+GENIVI
+</glossterm>
+<glossdef>
+<simpara>
+  is a non-profit industry alliance committed to driving the broad adoption of an In-Vehicle Infotainment (IVI) open-source development platform.
+</simpara>
+</glossdef>
+</glossentry>
+</glossary>
+<index id="_example_index">
+<title>Example Index</title>
+</index>
+</article>

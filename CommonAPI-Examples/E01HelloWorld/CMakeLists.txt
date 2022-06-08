@@ -28,8 +28,8 @@ add_definitions(-DCOMMONAPI_LOGLEVEL=COMMONAPI_LOGLEVEL_${MAX_LOG_LEVEL})
 
 if (MSVC)
 # Visual C++ is not always sure whether he is really C++
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D_CRT_SECURE_NO_WARNINGS /EHsc /wd\\\"4503\\\"")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_CRT_SECURE_NO_WARNINGS /wd\\\"4503\\\"")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D_CRT_SECURE_NO_WARNINGS /EHsc")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_CRT_SECURE_NO_WARNINGS")
 else()
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -Wall -O0 -std=c++11 -D_GLIBCXX_USE_NANOSLEEP -DLINUX")
 endif()
@@ -45,37 +45,43 @@ message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 OPTION(USE_INSTALLED_COMMONAPI "Set to OFF to use the local (build tree) version of CommonAPI" ON)
 message(STATUS "USE_INSTALLED_COMMONAPI is set to value: ${USE_INSTALLED_COMMONAPI}")
 
+set(BOOST_ROOT "C:/Project/Boost")
+set(Boost_INCLUDE_DIR "C:/Project/Boost/include/boost-1_69")
+set(CommonAPI_ROOT "C:/Project/capicxx-core-runtime")
+set(CommonAPI-SomeIP_ROOT "C:/Project/capicxx-someip-runtime")
+set(vsomeip3_ROOT "C:/Project/vsomeip3")
+
 if ("${USE_INSTALLED_COMMONAPI}" STREQUAL "ON")
     FIND_PACKAGE(CommonAPI 3.2.0 REQUIRED CONFIG NO_CMAKE_PACKAGE_REGISTRY)
-    FIND_PACKAGE(CommonAPI-DBus 3.2.0 REQUIRED CONFIG NO_CMAKE_PACKAGE_REGISTRY)
+    # FIND_PACKAGE(CommonAPI-DBus 3.2.0 REQUIRED CONFIG NO_CMAKE_PACKAGE_REGISTRY)
 else()
     FIND_PACKAGE(CommonAPI 3.2.0 REQUIRED CONFIG NO_SYSTEM_ENVIRONMENT_PATH NO_CMAKE_SYSTEM_PATH)
-    FIND_PACKAGE(CommonAPI-DBus 3.2.0 REQUIRED CONFIG NO_SYSTEM_ENVIRONMENT_PATH NO_CMAKE_SYSTEM_PATH)
+    # FIND_PACKAGE(CommonAPI-DBus 3.2.0 REQUIRED CONFIG NO_SYSTEM_ENVIRONMENT_PATH NO_CMAKE_SYSTEM_PATH)
 endif()
 
 message(STATUS "CommonAPI_CONSIDERED_CONFIGS: ${CommonAPI_CONSIDERED_CONFIGS}")
 message(STATUS "COMMONAPI_INCLUDE_DIRS: ${COMMONAPI_INCLUDE_DIRS}")
-message(STATUS "CommonAPI-DBus_CONSIDERED_CONFIGS: ${CommonAPI-DBus_CONSIDERED_CONFIGS}")
-message(STATUS "COMMONAPI_DBUS_INCLUDE_DIRS: ${COMMONAPI_DBUS_INCLUDE_DIRS}")
+# message(STATUS "CommonAPI-DBus_CONSIDERED_CONFIGS: ${CommonAPI-DBus_CONSIDERED_CONFIGS}")
+# message(STATUS "COMMONAPI_DBUS_INCLUDE_DIRS: ${COMMONAPI_DBUS_INCLUDE_DIRS}")
 
 # CommonAPI
 include(FindPkgConfig)
 ###############################################################################
 # find DBus by using the 'pkg-config' tool
-if (MSVC)
-    #Not beautiful, but it works
-    if (DBus_DIR)
-        if (DBus_BUILD_DIR)
-            set(DBus_INCLUDE_DIRS "${DBus_DIR};${DBus_BUILD_DIR};")
-        else ()
-            message (FATAL_ERROR "DBus_BUILD_DIR not set! Cannot continue.")
-        endif ()
-    else()
-        message (FATAL_ERROR "DBus_DIR not set! Cannot continue.")
-    endif ()
-else()
-    pkg_check_modules(DBus REQUIRED dbus-1>=1.4)
-endif()
+# if (MSVC)
+#     #Not beautiful, but it works
+#     if (DBus_DIR)
+#         if (DBus_BUILD_DIR)
+#             set(DBus_INCLUDE_DIRS "${DBus_DIR};${DBus_BUILD_DIR};")
+#         else ()
+#             message (FATAL_ERROR "DBus_BUILD_DIR not set! Cannot continue.")
+#         endif ()
+#     else()
+#         message (FATAL_ERROR "DBus_DIR not set! Cannot continue.")
+#     endif ()
+# else()
+#     pkg_check_modules(DBus REQUIRED dbus-1>=1.4)
+# endif()
 
 # SOME/IP
 find_package (CommonAPI-SomeIP 3.2.0 REQUIRED)
@@ -85,11 +91,24 @@ find_package (vsomeip3 3.1.0 REQUIRED)
 set(PRJ_SRC_PATH src)
 set(PRJ_SRC_GEN_PATH src-gen)
 set(PRJ_SRC_GEN_COMMONAPI_PATH ${PRJ_SRC_GEN_PATH}/core/v0/commonapi/examples)
-set(PRJ_SRC_GEN_COMMONAPI_DBUS_PATH ${PRJ_SRC_GEN_PATH}/dbus/v0/commonapi/examples)
+# set(PRJ_SRC_GEN_COMMONAPI_DBUS_PATH ${PRJ_SRC_GEN_PATH}/dbus/v0/commonapi/examples)
 set(PRJ_SRC_GEN_COMMONAPI_SOMEIP_PATH ${PRJ_SRC_GEN_PATH}/someip/v0/commonapi/examples)
 
 set(PRJ_NAME_CLIENT ${PRJ_NAME}Client)
 set(PRJ_NAME_SERVICE ${PRJ_NAME}Service)
+
+set(COMMONAPI_GEN commonapi-core-generator-windows-x86_64.exe)
+set(COMMONAPI_SOMEIP_GEN commonapi-someip-generator-windows-x86_64.exe)
+
+set(fidl ${CMAKE_CURRENT_SOURCE_DIR}/fidl/E01HelloWorld.fidl)
+set(fdepl ${CMAKE_CURRENT_SOURCE_DIR}/fidl/E01HelloWorld-SomeIP.fdepl)
+
+execute_process(
+    COMMAND ${COMMONAPI_GEN} -ll quiet -sk -pf -d ${CMAKE_CURRENT_SOURCE_DIR}/${PRJ_SRC_GEN_PATH}/core ${fidl}
+)
+execute_process(
+    COMMAND ${COMMONAPI_SOMEIP_GEN} -ll quiet -pf -d ${CMAKE_CURRENT_SOURCE_DIR}/${PRJ_SRC_GEN_PATH}/someip ${fdepl}
+)
 
 # Application
 FILE(GLOB PRJ_PROXY_GEN_SRCS ${PRJ_SRC_GEN_COMMONAPI_PATH}/*Proxy.cpp)
@@ -103,21 +122,21 @@ find_package( Boost 1.54 COMPONENTS system thread log REQUIRED )
 include_directories( ${Boost_INCLUDE_DIR} )
 
 # DBus library
-FILE(GLOB PRJ_DBUS_LIB_SRCS ${PRJ_SRC_GEN_COMMONAPI_DBUS_PATH}/*cpp)
+# FILE(GLOB PRJ_DBUS_LIB_SRCS ${PRJ_SRC_GEN_COMMONAPI_DBUS_PATH}/*cpp)
 
 # SOME/IP library
 FILE(GLOB PRJ_SOMEIP_LIB_SRCS ${PRJ_SRC_GEN_COMMONAPI_SOMEIP_PATH}/*cpp)
 
 # Paths
-OPTION(USE_INSTALLED_DBUS "Set to OFF to use the local (patched) version of dbus" ON)
-message(STATUS "USE_INSTALLED_DBUS is set to value: ${USE_INSTALLED_DBUS}")
+# OPTION(USE_INSTALLED_DBUS "Set to OFF to use the local (patched) version of dbus" ON)
+# message(STATUS "USE_INSTALLED_DBUS is set to value: ${USE_INSTALLED_DBUS}")
 
 include_directories(
     src-gen/core
-    src-gen/dbus
+    # src-gen/dbus
     src-gen/someip
     ${COMMONAPI_INCLUDE_DIRS}
-    ${COMMONAPI_DBUS_INCLUDE_DIRS}
+    # ${COMMONAPI_DBUS_INCLUDE_DIRS}
     ${COMMONAPI_SOMEIP_INCLUDE_DIRS}
     ${DBus_INCLUDE_DIRS}
     ${VSOMEIP_INCLUDE_DIRS}
@@ -126,14 +145,14 @@ include_directories(
 if ("${USE_INSTALLED_DBUS}" STREQUAL "ON")
 link_directories(
     ${COMMONAPI_LIBDIR}
-    ${COMMONAPI_DBUS_LIBDIR}
+    # ${COMMONAPI_DBUS_LIBDIR}
     ${COMMONAPI_SOMEIP_CMAKE_DIR}/build
     ${Boost_LIBRARY_DIR}
 )
 else()
 link_directories(
     ${COMMONAPI_LIBDIR}
-    ${COMMONAPI_DBUS_LIBDIR}
+    # ${COMMONAPI_DBUS_LIBDIR}
     ${COMMONAPI_SOMEIP_CMAKE_DIR}/build
     ${DBus_INCLUDE_DIRS}/dbus/.libs
     ${Boost_LIBRARY_DIR}
@@ -155,8 +174,8 @@ add_executable(${PRJ_NAME_SERVICE} ${PRJ_SERVICE_SRCS})
 target_link_libraries(${PRJ_NAME_SERVICE} ${LINK_LIBRARIES})
 
 # Build DBus library
-add_library (${PRJ_NAME}-dbus SHARED ${PRJ_DBUS_LIB_SRCS})
-target_link_libraries(${PRJ_NAME}-dbus CommonAPI-DBus)
+# add_library (${PRJ_NAME}-dbus SHARED ${PRJ_DBUS_LIB_SRCS})
+# target_link_libraries(${PRJ_NAME}-dbus CommonAPI-DBus)
 
 # Build SOME/IP library
 add_library (${PRJ_NAME}-someip SHARED ${PRJ_SOMEIP_LIB_SRCS})
